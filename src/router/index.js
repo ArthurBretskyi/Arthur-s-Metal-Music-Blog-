@@ -5,6 +5,7 @@ import CategoryView from '@/views/CategoryView.vue'
 import AboutView from '@/views/AboutView.vue'
 import AdminView from '@/views/AdminView.vue'
 import EditView from '@/views/EditView.vue'
+import ReleasesView from '@/views/ReleasesView.vue'
 
 const routes = [
   {
@@ -38,6 +39,11 @@ const routes = [
     name: 'Edit',
     component: EditView,
     meta: { requiresAdmin: true },
+  },
+  {
+    path: '/releases',
+    name: 'Releases',
+    component: ReleasesView,
   },
 ]
 
