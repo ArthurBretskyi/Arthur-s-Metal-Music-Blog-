@@ -10,6 +10,9 @@
                     <li class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'About' }"
                             class="menu-mobile__link">About</router-link>
                     </li>
+                    <li class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'Releases' }"
+                            class="menu-mobile__link">Releases</router-link>
+                    </li>
                     <li class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'Admin' }"
                             class="menu-mobile__link">Admin</router-link>
                     </li>

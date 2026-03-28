@@ -2,7 +2,7 @@
     <header class="header">
         <div class="header__container container">
             <div class="header__left">
-                <h2 class="header__title">AMMB</h2>
+                <h2 class="header__title">mAss</h2>
             </div>
             <div class="header__center">
                 <nav class="header__menu menu">
@@ -49,7 +49,7 @@ const { toggleMenu } = store
 
 <style lang="scss">
 .header {
-    position: relative; // без цього z-index не працює!
+    position: relative;
     z-index: 10;
     box-shadow: 0 2px 8px $second-color;
 
@@ -58,7 +58,7 @@ const { toggleMenu } = store
         align-items: center;
         justify-content: space-between;
         column-gap: 35px;
-        min-height: 116px;
+        min-height: 96px;
         padding-block: 1rem;
     }
 

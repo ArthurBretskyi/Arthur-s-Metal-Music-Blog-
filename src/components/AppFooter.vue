@@ -17,7 +17,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 116px;
+        min-height: 66px;
     }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-    <div class="about__container">
-        <div class="about__content">
+    <div class="about">
+        <div class="about__container">
             <p class="about__text">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur expedita dicta omnis eius in,
                 possimus aliquid quia ipsam quam! Doloremque nostrum beatae cum soluta corrupti vero explicabo odio
@@ -15,4 +15,20 @@
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.about {
+    min-height: calc(100vh - $header-height);
+    background-color: $background-color;
+    padding: $spacing-lg $spacing-md;
+
+    &__container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    &__text {
+        font-size: $lg;
+        text-align: center;
+    }
+}
+</style>

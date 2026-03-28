@@ -37,4 +37,14 @@ const onGenreSelect = (genre) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.releases {
+    padding: $spacing-lg 0;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-lg;
+    }
+}
+</style>
