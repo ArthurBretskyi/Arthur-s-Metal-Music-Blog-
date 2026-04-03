@@ -56,6 +56,9 @@ import bruce from '@/assets/pictures/home/Bruce Dickinson.png'
 import varg from '@/assets/pictures/home/Varg Vikernes.png'
 import dime from '@/assets/pictures/home/Dime.png'
 import rob from '@/assets/pictures/home/Rob Halford.png'
+import ozzy from '@/assets/pictures/home/Ozzy.png'
+import nergal from '@/assets/pictures/home/Nergal.png'
+import peter from '@/assets/pictures/home/Peter Steele.png'
 import master from '@/assets/pictures/home/master-of-puppets.WEBP'
 import rust from '@/assets/pictures/home/Rust In Peace.jpg'
 import beast from '@/assets/pictures/home/number-of-the-beast.WEBP'
@@ -64,6 +67,8 @@ import filosofem from '@/assets/pictures/home/filosofem.jpg'
 import vulgar from '@/assets/pictures/home/Vulgar Display of Power.jpg'
 import ozzmosis from '@/assets/pictures/home/Ozzmosis.jpg'
 import painkiller from '@/assets/pictures/home/Painkiller.jpg'
+import thelema from '@/assets/pictures/home/Thelema.jpg'
+import october from '@/assets/pictures/home/october rust.jpg'
 
 const items = reactive([
     { src: dave, alt: 'Dave Mustaine', showPhoto: false },
@@ -73,6 +78,9 @@ const items = reactive([
     { src: varg, alt: 'Varg Vikernes', showPhoto: false },
     { src: dime, alt: 'Dime', showPhoto: false },
     { src: rob, alt: 'Rob Halford', showPhoto: false },
+    { src: ozzy, alt: 'Ozzy', showPhoto: false },
+    { src: nergal, alt: 'Nergal', showPhoto: false },
+    { src: peter, alt: 'Peter Steele', showPhoto: false },
     { src: master, alt: 'master of puppets', showPhoto: false },
     { src: rust, alt: 'Rust In Peace', showPhoto: false },
     { src: beast, alt: 'number of the beast', showPhoto: false },
@@ -81,6 +89,8 @@ const items = reactive([
     { src: vulgar, alt: 'vulgar display of power', showPhoto: false },
     { src: ozzmosis, alt: 'ozzmosis', showPhoto: false },
     { src: painkiller, alt: 'painkiller', showPhoto: false },
+    { src: thelema, alt: 'thelema', showPhoto: false },
+    { src: october, alt: 'october rust', showPhoto: false },
 ])
 
 const canvasRef = ref(null)
