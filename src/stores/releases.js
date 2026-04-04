@@ -1,3 +1,22 @@
+// ============================= Firestore
+
+import { defineStore } from 'pinia'
+import getStoreTemplate from '@/stores/helpers/storeTemplate'
+import { useGeneralStore } from './general'
+
+export const useReleasesStore = defineStore('releases', () => {
+  const { generalApiOperation } = useGeneralStore()
+  const base = getStoreTemplate('releases', generalApiOperation)
+
+  return {
+    ...base,
+    addNewRelease: base.addItem,
+    updateRelease: base.updateItem,
+  }
+})
+
+// =========================================Pinia
+
 // import { defineStore } from 'pinia'
 // import { ref } from 'vue'
 
@@ -88,18 +107,3 @@
 //     updateRelease,
 //   }
 // })
-
-// ============================= Firestore
-
-import { defineStore } from 'pinia'
-import getStoreTemplate from '@/stores/helpers/storeTemplate'
-import { useGeneralStore } from './general'
-
-export const useSnacksStore = defineStore('releases', () => {
-  const { generalApiOperation } = useGeneralStore()
-  const base = getStoreTemplate('releases', generalApiOperation)
-
-  return {
-    ...base,
-  }
-})

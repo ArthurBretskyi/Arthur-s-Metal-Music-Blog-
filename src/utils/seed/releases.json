@@ -1,0 +1,38 @@
+[
+  {
+    "band": "Kreator",
+    "album": "Krushers Of The World",
+    "label": "Nuclear Blast",
+    "genre": ["Metal", "Thrash Metal"],
+    "date": "January 16, 2026",
+    "description": "Some Text Here",
+    "cover": ""
+  },
+  {
+    "band": "Megadeth",
+    "album": "Megadeth",
+    "label": "Tradecraft",
+    "genre": ["Metal", "Thrash Metal"],
+    "date": "February 05, 2026",
+    "description": "Some Text Here",
+    "cover": ""
+  },
+  {
+    "band": "Mayhem",
+    "album": "Liturgy of Death",
+    "label": "Century Media Records",
+    "genre": ["Black Metal"],
+    "date": "February 06, 2026",
+    "description": "Some Text Here",
+    "cover": ""
+  },
+  {
+    "band": "Slagmaur",
+    "album": "Hulders Ritual",
+    "label": "Prophecy Productions",
+    "genre": ["Black Metal"],
+    "date": "February 27, 2026",
+    "description": "Some Text Here",
+    "cover": ""
+  }
+]

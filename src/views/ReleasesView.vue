@@ -1,40 +1,42 @@
 <template>
     <div class="releases">
         <div class="releases__container">
-            <GenreFilter :genres="genres" @searchByGenre="onGenreSelect" />
+            <GenreFilter :genres="genreNames" @searchByGenre="onGenreSelect" />
             <ReleaseList :releases="filteredReleases" />
         </div>
     </div>
 </template>
 
 <script setup>
-import ReleaseList from '@/components/ReleaseList.vue';
-import { useReleasesStore } from '@/stores/releases';
-import { storeToRefs } from 'pinia';
-import { ref, computed } from 'vue'
-import GenreFilter from '@/components/GenreFilter.vue';
+import { ref, computed, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import ReleaseList from '@/components/ReleaseList.vue'
+import GenreFilter from '@/components/GenreFilter.vue'
+import { useReleasesStore } from '@/stores/releases'
+import { useGenresStore } from '@/stores/genres'
 
-const store = useReleasesStore()
-const { releases } = storeToRefs(store)
+const releasesStore = useReleasesStore()
+const genresStore = useGenresStore()
 
-const genres = computed(() => {
-    // 1. витягую всі genre масиви з releases
-    const allGenres = releases.value.map((release) => release.genre)
-    // 2. роблю одновимірний масив
-    const genresArr = allGenres.flat()
-    // 3. алишаю унікальні значення
-    const uniqueGenres = [...new Set(genresArr)]
-    return uniqueGenres
-})
+const { getItemsList: releases } = storeToRefs(releasesStore)
+const { getItemsList: genres } = storeToRefs(genresStore)
+
+const genreNames = computed(() => genres.value.map(g => g.name))
 
 const selectedGenre = ref(null)
 const filteredReleases = computed(() => {
     if (!selectedGenre.value) return releases.value
-    return releases.value.filter((release) => release.genre.includes(selectedGenre.value))
+    return releases.value.filter(r => r.genre.includes(selectedGenre.value))
 })
-const onGenreSelect = (genre) => {
+
+function onGenreSelect(genre) {
     selectedGenre.value = genre
 }
+
+onMounted(() => {
+    if (!releasesStore.getItemsList.length) releasesStore.loadItemsList()
+    if (!genresStore.getItemsList.length) genresStore.loadItemsList()
+})
 </script>
 
 <style lang="scss" scoped>

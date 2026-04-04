@@ -34,7 +34,7 @@
             <div class="form__section">
                 <p class="form__section-title">Genres</p>
 
-                <div v-for="genre in availableGenres" :key="genre" class="genre-item">
+                <div v-for="genre in genreNames" :key="genre" class="genre-item">
                     <input type="checkbox" :id="genre" v-model="newRelease.genre" :value="genre" class="genre-item__input">
                     <span class="genre-item__box"></span>
                     <label :for="genre" class="genre-item__label">{{ genre }}</label>
@@ -50,20 +50,34 @@
                 <button type="submit" class="btn btn--submit">Add release</button>
             </div>
 
+            <!-- DEV ONLY: remove after first seed -->
+            <!-- <div v-if="isAdmin" class="dev-tools">
+                <button type="button" @click="onSeed" class="btn btn--seed">
+                    🌱 Seed Database
+                </button>
+            </div> -->
         </form>
     </div>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useReleasesStore } from '@/stores/releases';
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
+import { useReleasesStore } from '@/stores/releases'
+import { useGenresStore } from '@/stores/genres'
+import { useAuthStore } from '@/stores/auth'
+import { seedDatabase } from '@/utils/seed/seed.js'
 
 const router = useRouter()
-const store = useReleasesStore()
-const { availableGenres } = storeToRefs(store)
-const { addNewRelease, addGenre } = store
+
+const releasesStore = useReleasesStore()
+const genresStore = useGenresStore()
+const authStore = useAuthStore()
+
+const { isAdmin } = storeToRefs(authStore)
+const { getItemsList: genres } = storeToRefs(genresStore)
+const genreNames = computed(() => genres.value.map(g => g.name))
 
 const newRelease = reactive({
     band: '',
@@ -76,24 +90,30 @@ const newRelease = reactive({
 
 const newGenre = ref('')
 
-function onSubmit() {
-    addNewRelease(newRelease)
-    newRelease.band = '',
-        newRelease.album = ''
+async function onSubmit() {
+    await releasesStore.addNewRelease(newRelease)
+    newRelease.band = ''
+    newRelease.album = ''
     newRelease.label = ''
     newRelease.genre = []
     newRelease.date = ''
     newRelease.description = ''
-
     router.push({ name: 'Releases' })
-
 }
 
-function addNewGenre() {
-    addGenre(newGenre.value)
+async function addNewGenre() {
+    if (!newGenre.value.trim()) return
+    await genresStore.addGenre({ name: newGenre.value.trim() })
     newGenre.value = ''
 }
 
+async function onSeed() {
+    await seedDatabase()
+}
+
+onMounted(() => {
+    if (!genresStore.getItemsList.length) genresStore.loadItemsList()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -296,5 +316,28 @@ function addNewGenre() {
             color: $background-color;
         }
     }
+
+    &--seed {
+        width: 100%;
+        background: transparent;
+        border: 1px dashed $second-color;
+        border-radius: $border-radius;
+        color: $second-color;
+        font-family: $main-font;
+        font-size: $sm;
+        height: 44px;
+        cursor: pointer;
+        transition: $transition;
+
+        &:hover {
+            border-color: $accent-color;
+            color: $accent-color;
+        }
+    }
+}
+
+.dev-tools {
+    padding-top: $spacing-md;
+    border-top: 1px dashed $second-color;
 }
 </style>
