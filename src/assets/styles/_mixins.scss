@@ -22,3 +22,32 @@
   justify-content: center;
   align-items: center;
 }
+
+@mixin form-btn(
+  $cards-background-color,
+  $border-radius,
+  $second-color,
+  $main-font,
+  $sm,
+  $spacing-md,
+  $transition,
+  $accent-color
+) {
+  background: transparent;
+  border: 1px solid lighten($cards-background-color, 15%);
+  border-radius: $border-radius;
+  color: $second-color;
+  font-family: $main-font;
+  font-size: $sm;
+  font-weight: 500;
+  padding: 0 $spacing-md;
+  height: 40px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    border-color: $accent-color;
+    color: $accent-color;
+  }
+}

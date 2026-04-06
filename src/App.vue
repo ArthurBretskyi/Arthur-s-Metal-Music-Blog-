@@ -4,13 +4,22 @@
     <main class="main">
       <router-view />
     </main>
-    <AppFooter />
+    <Transition>
+      <AuthModal v-if="isAuthModalOpen" />
+    </Transition>
   </div>
+  <AppFooter />
 </template>
 
 <script setup>
 import AppHeader from '@/components/Header/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
+import AuthModal from './components/Auth/AuthModal.vue';
+import { useUiStore } from './stores/ui';
+import { storeToRefs } from 'pinia';
+
+const uiStore = useUiStore()
+const { isAuthModalOpen } = storeToRefs(uiStore)
 </script>
 
 <style scoped>

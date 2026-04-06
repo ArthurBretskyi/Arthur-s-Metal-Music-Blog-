@@ -25,7 +25,7 @@
             </div>
             <div class="header__right">
                 <div class="header__actions actions-header">
-                    <button class="actions-header__register">Register</button>
+                    <button @click="toggleAuthModal" class="actions-header__register">Register</button>
                 </div>
             </div>
             <BurgerMenu @toggle-menu="toggleMenu" />
@@ -43,8 +43,9 @@ import { useUiStore } from '@/stores/ui';
 import { storeToRefs } from 'pinia';
 
 const store = useUiStore()
-const { isMenuOpen } = storeToRefs(store)
-const { toggleMenu } = store
+const { isMenuOpen, isAuthModalOpen } = storeToRefs(store)
+const { toggleMenu, toggleAuthModal } = store
+
 </script>
 
 <style lang="scss">
