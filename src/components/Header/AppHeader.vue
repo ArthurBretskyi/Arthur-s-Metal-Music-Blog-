@@ -24,9 +24,10 @@
                 </nav>
             </div>
             <div class="header__right">
-                <div class="header__actions actions-header">
+                <div v-if="!user" class="header__actions actions-header">
                     <button @click="toggleAuthModal" class="actions-header__register">Register</button>
                 </div>
+                <UserMenu v-else />
             </div>
             <BurgerMenu @toggle-menu="toggleMenu" />
             <Transition name="slide">
@@ -39,13 +40,18 @@
 <script setup>
 import BurgerMenu from '@/components/Header/BurgerMenu.vue';
 import MobileNav from '@/components/Header/MobileNav.vue'
+import UserMenu from '@/components/Header/UserMenu.vue'
 import { useUiStore } from '@/stores/ui';
+import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue'
 
 const store = useUiStore()
 const { isMenuOpen, isAuthModalOpen } = storeToRefs(store)
 const { toggleMenu, toggleAuthModal } = store
 
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
 </script>
 
 <style lang="scss">

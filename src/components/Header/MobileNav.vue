@@ -18,15 +18,67 @@
                     </li>
                 </ul>
             </nav>
-            <div class="menu-mobile__actions actions-mobile">
-                <button class="actions-mobile__register">Register</button>
+            <div v-if="!user" class="menu-mobile__actions actions-mobile">
+                <button @click="toggleAuthModal" class="actions-mobile__register">Register</button>
+            </div>
+            <div v-else class="menu-mobile__user user-menu">
+                <div class="user-menu__init">
+                    <img v-if="photoURL" :src="photoURL" :alt="displayName" class="user-menu__avatar" />
+                    <span v-else class="user-menu__initials">{{ initials }}</span>
+                </div>
+                <div>
+                    <div class="user-menu__info">
+                        <span class="user-menu__name">{{ displayName }}</span>
+                        <span class="user-menu__email">{{ email }}</span>
+                    </div>
+                    <button class="user-menu__logout" @click="onLogout" type="button">
+                        Вийти
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { useAuthStore } from '@/stores/auth';
+import { useUiStore } from '@/stores/ui';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
+const { logout } = authStore
+
+const UiStore = useUiStore()
+const { toggleAuthModal } = UiStore
+
+
+
+const photoURL = computed(() => user.value?.photoURL || null)
+
+const displayName = computed(() => {
+    return user.value?.displayName
+        || user.value?.email?.split('@')[0]
+        || 'User'
+})
+
+const email = computed(() => user.value?.email || '')
+
+const initials = computed(() => displayName.value.charAt(0).toUpperCase())
+
 const emit = defineEmits(['close'])
+
+async function onLogout() {
+    await logout()
+    emit('close')
+    router.push({ name: 'Home' })
+}
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -60,6 +112,9 @@ const emit = defineEmits(['close'])
 }
 
 .menu-mobile {
+    margin-block-end: $spacing-lg;
+    border-bottom: 2px solid color.adjust($cards-background-color, $lightness: 8%);
+
 
     &__list {
         display: flex;
@@ -75,6 +130,9 @@ const emit = defineEmits(['close'])
         color: $accent-color;
     }
 
+    &__actions {}
+
+    &__user {}
 }
 
 .actions-mobile {
@@ -86,6 +144,60 @@ const emit = defineEmits(['close'])
         font-size: $xl;
         padding: .5rem;
         border-radius: .25rem;
+    }
+}
+
+.user-menu {
+
+    &__init {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    &__avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &__initials {
+        font-size: $sm;
+        font-weight: 600;
+        color: $background-color;
+        background-color: $accent-color;
+        width: 100%;
+        height: 100%;
+        @include flex-center;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: $spacing-md;
+        border-bottom: 1px solid color.adjust($cards-background-color, $lightness: 8%);
+    }
+
+    &__name {
+        font-size: $base-size;
+        font-weight: 500;
+        color: $main-color;
+    }
+
+    &__email {
+        font-size: $sm;
+        color: $second-color;
+    }
+
+    &__logout {
+        display: block;
+        width: 100%;
+        padding: $spacing-md;
+        text-align: left;
+        font-size: $sm;
+        color: $decor-color;
     }
 }
 </style>

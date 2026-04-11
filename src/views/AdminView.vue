@@ -29,6 +29,21 @@
                     <label for="description" class="form__label">Description</label>
                     <textarea id="description" rows="4" v-model="newRelease.description" class="form__textarea"></textarea>
                 </div>
+
+                <div class="form__field">
+                    <label class="form__label">Cover</label>
+                    <div class="cover-upload">
+                        <div class="cover-upload__preview">
+                            <img v-if="coverPreview" :src="coverPreview" alt="cover preview" class="cover-upload__img" />
+                            <span v-else class="cover-upload__placeholder">No image</span>
+                        </div>
+                        <label for="cover" class="cover-upload__btn">
+                            Choose file
+                            <input type="file" id="cover" accept="image/*" class="cover-upload__input"
+                                @change="onCoverChange" />
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <div class="form__section">
@@ -68,6 +83,7 @@ import { useReleasesStore } from '@/stores/releases'
 import { useGenresStore } from '@/stores/genres'
 import { useAuthStore } from '@/stores/auth'
 import { seedDatabase } from '@/utils/seed/seed.js'
+import { uploadImage } from '@/utils/uploadImage.js'
 
 const router = useRouter()
 
@@ -78,6 +94,9 @@ const authStore = useAuthStore()
 const { isAdmin } = storeToRefs(authStore)
 const { getItemsList: genres } = storeToRefs(genresStore)
 const genreNames = computed(() => genres.value.map(g => g.name))
+
+const coverFile = ref(null)
+const coverPreview = ref(null)
 
 const newRelease = reactive({
     band: '',
@@ -91,13 +110,22 @@ const newRelease = reactive({
 const newGenre = ref('')
 
 async function onSubmit() {
-    await releasesStore.addNewRelease(newRelease)
+    let coverUrl = ''
+    if (coverFile.value) {
+        coverUrl = await uploadImage(coverFile.value)
+    }
+
+    await releasesStore.addNewRelease({ ...newRelease, cover: coverUrl })
+
     newRelease.band = ''
     newRelease.album = ''
     newRelease.label = ''
     newRelease.genre = []
     newRelease.date = ''
     newRelease.description = ''
+    coverFile.value = null
+    coverPreview.value = null
+
     router.push({ name: 'Releases' })
 }
 
@@ -109,6 +137,13 @@ async function addNewGenre() {
 
 async function onSeed() {
     await seedDatabase()
+}
+
+function onCoverChange(event) {
+    const file = event.target.files[0]
+    if (!file) return
+    coverFile.value = file
+    coverPreview.value = URL.createObjectURL(file)
 }
 
 onMounted(() => {
@@ -326,6 +361,63 @@ onMounted(() => {
         font-family: $main-font;
         font-size: $sm;
         height: 44px;
+        cursor: pointer;
+        transition: $transition;
+
+        &:hover {
+            border-color: $accent-color;
+            color: $accent-color;
+        }
+    }
+}
+
+.cover-upload {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-md;
+
+    &__preview {
+        width: 120px;
+        height: 120px;
+        flex-shrink: 0;
+        background-color: $background-color;
+        border: 1px solid color.adjust($cards-background-color, $lightness: 8%);
+        border-radius: $border-radius;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__placeholder {
+        font-size: $sm;
+        color: $second-color;
+        opacity: 0.5;
+    }
+
+    &__input {
+        display: none;
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 $spacing-md;
+        background: transparent;
+        border: 1px solid color.adjust($cards-background-color, $lightness: 15%);
+        border-radius: $border-radius;
+        color: $second-color;
+        font-family: $main-font;
+        font-size: $sm;
+        font-weight: 500;
         cursor: pointer;
         transition: $transition;
 

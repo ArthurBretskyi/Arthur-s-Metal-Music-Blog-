@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card__image">
-            <img src="" alt="album cover" class="card__img">
+            <img :src="release.cover || ''" alt="album cover" class="card__img">
         </div>
         <div class="card__body">
             <h2 class="card__title">{{ release.band }}</h2>
@@ -31,7 +31,7 @@ defineProps({
 .card {
     background-color: $cards-background-color;
     border-radius: $border-radius;
-    border: 1px solid lighten($cards-background-color, 8%);
+    border: 1px solid color.adjust($cards-background-color, $lightness: 8%);
     overflow: hidden;
     transition: $transition;
     cursor: pointer;
@@ -44,7 +44,7 @@ defineProps({
     &__image {
         width: 100%;
         aspect-ratio: 1 / 1;
-        background-color: lighten($cards-background-color, 4%);
+        background-color: color.adjust($cards-background-color, $lightness: 8%);
         overflow: hidden;
     }
 

@@ -15,7 +15,7 @@ const route = useRoute()
 const searchingGenre = route.params.genre
 
 const store = useReleasesStore()
-const { releases } = storeToRefs(store)
+const { getItemsList: releases } = storeToRefs(store)
 
 const filteredReleases = computed(() => {
     if (!searchingGenre) return releases.value

@@ -6,7 +6,7 @@
             </div>
             <div v-else class="release__info">
                 <div class="release__image">
-                    <img src="" alt="album cover" class="release__img">
+                    <img :src="currentRelease.cover || ''" alt="album cover" class="release__img">
                 </div>
                 <h2 class="release__band">{{ currentRelease.band }}</h2>
                 <h3 class="release__album">{{ currentRelease.album }}</h3>
@@ -23,15 +23,18 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { useReleasesStore } from '@/stores/releases';
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia';
 
 const route = useRoute()
 
 const store = useReleasesStore()
-const { releases } = storeToRefs(store)
+const { getItemsList: releases } = storeToRefs(store)
 
 const searchingId = route.params.id
-const currentRelease = releases.value.find((release) => release.id === searchingId)
+const currentRelease = computed(() =>
+    releases.value.find((release) => release.id === searchingId)
+)
 </script>
 
 <style lang="scss" scoped>
