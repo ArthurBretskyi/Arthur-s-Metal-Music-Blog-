@@ -61,6 +61,11 @@
                 </div>
             </div>
 
+            <div class="form__section">
+                <p class="form__section-title">Rating</p>
+                <StarRating v-model="newRelease.rating" />
+            </div>
+
             <div class="form__footer">
                 <button type="submit" class="btn btn--submit">Add release</button>
             </div>
@@ -84,6 +89,7 @@ import { useGenresStore } from '@/stores/genres'
 import { useAuthStore } from '@/stores/auth'
 import { seedDatabase } from '@/utils/seed/seed.js'
 import { uploadImage } from '@/utils/uploadImage.js'
+import StarRating from '@/components/StarRating.vue'
 
 const router = useRouter()
 
@@ -104,7 +110,8 @@ const newRelease = reactive({
     label: '',
     genre: [],
     date: '',
-    description: ''
+    description: '',
+    rating: 0
 })
 
 const newGenre = ref('')
@@ -123,6 +130,7 @@ async function onSubmit() {
     newRelease.genre = []
     newRelease.date = ''
     newRelease.description = ''
+    newRelease.rating = 0
     coverFile.value = null
     coverPreview.value = null
 
@@ -163,7 +171,7 @@ onMounted(() => {
         width: 100%;
         max-width: 520px;
         background-color: $cards-background-color;
-        border: 1px solid lighten($cards-background-color, 8%);
+        border: 1px solid color.adjust($cards-background-color, $lightness: 8%);
         border-radius: $border-radius * 2;
         padding: $spacing-lg;
         display: flex;
@@ -185,7 +193,7 @@ onMounted(() => {
             text-transform: uppercase;
             letter-spacing: 0.08em;
             padding-bottom: $spacing-sm;
-            border-bottom: 1px solid lighten($cards-background-color, 8%);
+            border-bottom: 1px solid color.adjust($cards-background-color, $lightness: 8%);
         }
     }
 
@@ -200,7 +208,7 @@ onMounted(() => {
     &__textarea {
         width: 100%;
         background-color: $background-color;
-        border: 1px solid lighten($cards-background-color, 8%);
+        border: 1px solid color.adjust($cards-background-color, $lightness: 8%);
         border-radius: $border-radius;
         color: $main-color;
         font-family: $main-font;
@@ -235,7 +243,7 @@ onMounted(() => {
 
     &__footer {
         padding-top: $spacing-md;
-        border-top: 1px solid lighten($cards-background-color, 8%);
+        border-top: 1px solid color.adjust($cards-background-color, $lightness: 8%);
     }
 }
 
@@ -244,7 +252,7 @@ onMounted(() => {
     align-items: center;
     gap: $spacing-sm;
     padding: $spacing-sm 0;
-    border-bottom: 1px solid lighten($cards-background-color, 5%);
+    border-bottom: 1px solid color.adjust($cards-background-color, $lightness: 15%);
     cursor: pointer;
 
     &:last-of-type {
@@ -259,7 +267,7 @@ onMounted(() => {
         width: 18px;
         height: 18px;
         flex-shrink: 0;
-        border: 1px solid lighten($cards-background-color, 15%);
+        border: 1px solid color.adjust($cards-background-color, $lightness: 15%);
         border-radius: 4px;
         background-color: $background-color;
         display: flex;
@@ -304,7 +312,7 @@ onMounted(() => {
     display: flex;
     gap: $spacing-sm;
     padding-top: $spacing-md;
-    border-top: 1px solid lighten($cards-background-color, 8%);
+    border-top: 1px solid color.adjust($cards-background-color, $lightness: 8%);
 
     .form__input {
         flex: 1;
@@ -314,7 +322,7 @@ onMounted(() => {
 .btn {
     &--outline {
         background: transparent;
-        border: 1px solid lighten($cards-background-color, 15%);
+        border: 1px solid color.adjust($cards-background-color, $lightness: 15%);
         border-radius: $border-radius;
         color: $second-color;
         font-family: $main-font;

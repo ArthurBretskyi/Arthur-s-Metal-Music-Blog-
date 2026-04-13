@@ -61,9 +61,16 @@ export default function getStoreTemplate(collectionTitle, generalApiOperation) {
   }
 
   async function updateItem(id, data) {
-    currentItem.value = await generalApiOperation({
+    await generalApiOperation({
       operation: () => collectionDB.updateItem(id, data),
     })
+    // оновлюємо елемент локально в сторі
+    if (itemsList.value) {
+      const index = itemsList.value.findIndex((item) => item.id === id)
+      if (index !== -1) {
+        itemsList.value[index] = { ...itemsList.value[index], ...data }
+      }
+    }
   }
 
   async function deleteItem(itemId) {

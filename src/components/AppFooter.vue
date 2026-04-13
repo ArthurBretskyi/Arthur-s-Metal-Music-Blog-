@@ -1,7 +1,7 @@
 <template>
     <footer class="footer">
         <div class="footer__container">
-            <p>&copy; {{ new Date().getFullYear() }} Arthur's Metal Music Blog. All rights reserved.</p>
+            <p>&copy; {{ new Date().getFullYear() }} mAss Metal Music Blog. All rights reserved.</p>
         </div>
     </footer>
 </template>

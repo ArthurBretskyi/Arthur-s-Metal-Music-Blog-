@@ -10,6 +10,9 @@
                 <span class="card__label">{{ release.label }}</span>
                 <span class="card__date">{{ release.date }}</span>
             </div>
+            <div class="release__rating">
+                <StarRating :modelValue="release.rating ?? 0" :readonly="true" />
+            </div>
             <span class="card__genre">{{ release.genre.join(' · ') }}</span>
             <RouterLink :to="{ name: 'Release', params: { id: release.id } }" class="card__link">
                 To Release →
@@ -19,6 +22,8 @@
 </template>
 
 <script setup>
+import StarRating from '@/components/StarRating.vue';
+
 defineProps({
     release: {
         type: Object,

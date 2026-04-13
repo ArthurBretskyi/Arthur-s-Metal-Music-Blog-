@@ -14,7 +14,11 @@
                 <span class="release__date">{{ currentRelease.date }}</span>
                 <span class="release__genre">{{ currentRelease.genre.join(', ') }}</span>
                 <p class="release__description">{{ currentRelease.description }}</p>
-                <router-link :to="{ name: 'Edit', params: { id: currentRelease.id } }">Edit Release</router-link>
+                <div class="release__rating">
+                    <StarRating :modelValue="currentRelease.rating ?? 0" :readonly="true" />
+                </div>
+                <router-link class="release__edit" :to="{ name: 'Edit', params: { id: currentRelease.id } }">Edit
+                    Release</router-link>
             </div>
         </div>
     </div>
@@ -25,6 +29,7 @@ import { useRoute } from 'vue-router'
 import { useReleasesStore } from '@/stores/releases';
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia';
+import StarRating from '@/components/StarRating.vue';
 
 const route = useRoute()
 
@@ -113,6 +118,13 @@ const currentRelease = computed(() =>
         padding-top: $spacing-md;
         border-top: 1px solid $cards-background-color;
     }
+
+    &__edit {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
 }
 
 .no-release {
