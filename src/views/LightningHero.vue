@@ -298,7 +298,7 @@ async function runLightningCycle() {
         await strike(0.5)
         await pause(600)
         await strike(0.8)
-        await pause(3000) // пауза перед наступним циклом
+        await pause(3000)
     }
 }
 
@@ -465,13 +465,13 @@ onUnmounted(() => timers.forEach(clearTimeout))
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 40px;
-        padding: 40px;
+        gap: 20px;
+        // padding: 40px;
     }
 
     &__col {
         flex: 1;
-        max-width: 380px;
+        max-width: 100%;
         aspect-ratio: 1;
     }
 

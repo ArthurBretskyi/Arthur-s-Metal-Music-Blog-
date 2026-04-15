@@ -20,6 +20,7 @@
                 <router-link class="release__edit" :to="{ name: 'Edit', params: { id: currentRelease.id } }">Edit
                     Release</router-link>
             </div>
+            <ReleaseComments :releaseId="searchingId" />
         </div>
     </div>
 </template>
@@ -30,6 +31,7 @@ import { useReleasesStore } from '@/stores/releases';
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia';
 import StarRating from '@/components/StarRating.vue';
+import ReleaseComments from '@/components/Comments/ReleaseComments.vue'
 
 const route = useRoute()
 

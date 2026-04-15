@@ -108,7 +108,7 @@ async function handleGoogle() {
         justify-content: center;
         padding: $spacing-lg $spacing-md;
         background-color: $background-color;
-        border: 1px solid lighten($cards-background-color, 8%);
+        border: 1px solid color.adjust($cards-background-color, $lightness: 8%);
         border-radius: $border-radius * 2;
         padding: $spacing-lg;
 
@@ -147,7 +147,7 @@ async function handleGoogle() {
         width: 100%;
         max-width: 520px;
         background-color: $cards-background-color;
-        border: 1px solid lighten($cards-background-color, 8%);
+        border: 1px solid color.adjust($cards-background-color, $lightness: 8%);
         border-radius: $border-radius * 2;
         padding: $spacing-lg;
         display: flex;
@@ -160,7 +160,7 @@ async function handleGoogle() {
     &__input {
         width: 100%;
         background-color: $background-color;
-        border: 1px solid lighten($cards-background-color, 8%);
+        border: 1px solid color.adjust($cards-background-color, $lightness: 8%);
         border-radius: $border-radius;
         color: $main-color;
         font-family: $main-font;
