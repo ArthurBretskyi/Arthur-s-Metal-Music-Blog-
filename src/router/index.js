@@ -1,3 +1,5 @@
+import { useAuthStore } from '@/stores/auth'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import ReleaseView from '@/views/ReleaseView.vue'
@@ -6,6 +8,7 @@ import AboutView from '@/views/AboutView.vue'
 import AdminView from '@/views/AdminView.vue'
 import EditView from '@/views/EditView.vue'
 import ReleasesView from '@/views/ReleasesView.vue'
+import AddReleaseView from '@/views/AddReleaseView.vue'
 
 const routes = [
   {
@@ -45,11 +48,31 @@ const routes = [
     name: 'Releases',
     component: ReleasesView,
   },
+  {
+    path: '/add-release',
+    name: 'Add-Release',
+    component: AddReleaseView,
+    meta: { requiresAuth: true },
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
+
+  if (to.meta.requiresAdmin && !authStore.isAdmin) {
+    return next({ name: 'Home' })
+  }
+
+  if (to.meta.requiresAuth && !authStore.user) {
+    return next({ name: 'Home' })
+  }
+
+  next()
 })
 
 export default router

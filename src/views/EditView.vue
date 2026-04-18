@@ -1,6 +1,8 @@
 <template>
     <div class="edit__container">
-        <form @submit.prevent="onSubmit" class="edit__form">
+        <div v-if="isLoading" class="edit__loading">Loading...</div>
+        <div v-else-if="!currentRelease" class="edit__not-found">Release not found.</div>
+        <form v-else @submit.prevent="onSubmit" class="edit__form">
             <label class="edit__label" for="band">Band:</label>
             <input class="edit__input" type="text" id="band" v-model="releaseToEdit.band">
 
@@ -33,35 +35,50 @@
 
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-import { useReleasesStore } from '@/stores/releases';
+import { useReleasesStore } from '@/stores/releases'
 import { useGenresStore } from '@/stores/genres'
-import { storeToRefs } from 'pinia';
-import { reactive, computed, onMounted } from 'vue'
+import { useGeneralStore } from '@/stores/general'
+import { storeToRefs } from 'pinia'
+import { reactive, computed, onMounted, watch } from 'vue'
 import StarRating from '@/components/StarRating.vue'
-
 
 const route = useRoute()
 const router = useRouter()
 
-const store = useReleasesStore()
-const { getItemsList: releases } = storeToRefs(store)
-const { updateRelease } = store
-
+const releasesStore = useReleasesStore()
 const genresStore = useGenresStore()
+const generalStore = useGeneralStore()
+
+const { getCurrentItem: currentRelease } = storeToRefs(releasesStore)
 const { getItemsList: genres } = storeToRefs(genresStore)
+const { isLoading } = storeToRefs(generalStore)
+
 const genreNames = computed(() => genres.value.map(g => g.name))
+const { updateRelease } = releasesStore
 
 const searchingId = route.params.id
-const currentRelease = releases.value.find((release) => release.id === searchingId)
+
 const releaseToEdit = reactive({
-    band: currentRelease.band,
-    album: currentRelease.album,
-    label: currentRelease.label,
-    genre: [...currentRelease.genre],
-    date: currentRelease.date,
-    description: currentRelease.description,
-    rating: currentRelease.rating ?? 0
+    band: '',
+    album: '',
+    label: '',
+    genre: [],
+    date: '',
+    description: '',
+    rating: 0,
 })
+
+// Коли currentRelease завантажиться — заповнюємо форму
+watch(currentRelease, (release) => {
+    if (!release) return
+    releaseToEdit.band = release.band
+    releaseToEdit.album = release.album
+    releaseToEdit.label = release.label
+    releaseToEdit.genre = [...release.genre]
+    releaseToEdit.date = release.date
+    releaseToEdit.description = release.description
+    releaseToEdit.rating = release.rating ?? 0
+}, { immediate: true })
 
 async function onSubmit() {
     await updateRelease(searchingId, releaseToEdit)
@@ -69,6 +86,7 @@ async function onSubmit() {
 }
 
 onMounted(() => {
+    releasesStore.loadItemById(searchingId)
     if (!genresStore.getItemsList.length) genresStore.loadItemsList()
 })
 </script>

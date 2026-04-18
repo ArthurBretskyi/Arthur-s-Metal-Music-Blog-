@@ -17,6 +17,18 @@
   }
 }
 
+@mixin title($xxl, $main-color) {
+  font-size: $xxl;
+  background-image: url('@/assets/pictures/fire.jpg');
+  background-size: cover;
+  background-position: center;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.4px $main-color;
+}
+
 @mixin flex-center {
   display: flex;
   justify-content: center;

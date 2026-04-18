@@ -18,6 +18,7 @@
         align-items: center;
         justify-content: center;
         min-height: 66px;
+        text-align: center;
     }
 }
 </style>

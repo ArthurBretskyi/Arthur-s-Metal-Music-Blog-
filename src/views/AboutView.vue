@@ -1,34 +1,159 @@
 <template>
     <div class="about">
         <div class="about__container">
-            <p class="about__text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur expedita dicta omnis eius in,
-                possimus aliquid quia ipsam quam! Doloremque nostrum beatae cum soluta corrupti vero explicabo odio
-                perspiciatis, sequi minima possimus quis, aliquid nulla inventore velit. Nisi quis velit molestiae maxime
-                reiciendis at facere corporis quisquam rerum! Quis, facere?
-            </p>
+            <div class="about-header">
+                <div class="about-header__body">
+                    <div class="about-header__image">
+                        <img src="@/assets/pictures/about/horns_left.png" alt="devil horns left" class="about-header__img">
+                    </div>
+                    <h2 class="about-header__title">Area under protection. Beware: angry horns.</h2>
+                    <div class="about-header__image">
+                        <img src="@/assets/pictures/about/horns_right.png" alt="devil horns right"
+                            class="about-header__img">
+                    </div>
+                </div>
+            </div>
+            <div class="about-main">
+                <p class="about-main__text">
+                    Hey! If you're here, it's definitely not by accident. Like me, you're searching for at least a glimmer
+                    of
+                    light and warmth in this wretched world. And you've found it — in the profound lyrics of Cannibal Corpse
+                    and
+                    the cozy atmosphere of Burzum. So don't be afraid, come on in. It's going to be fun.
+
+                </p>
+                <p class="about-main__text">Join the conversation with like-minded people!</p>
+            </div>
+            <div class="about-footer">
+                <div v-if="!user" class="about-footer__actions">
+                    <button @click="toggleAuthModal" class="about-footer__register">Join us</button>
+                </div>
+                <div v-else class="about-footer__welcome">
+                    Welcome to the pit!
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { useAuthStore } from '@/stores/auth';
+import { useUiStore } from '@/stores/ui';
+import { storeToRefs } from 'pinia';
 
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
+
+const uiStore = useUiStore()
+const { toggleAuthModal } = uiStore
 </script>
 
 <style lang="scss" scoped>
 .about {
-    min-height: calc(100vh - $header-height);
-    background-color: $background-color;
-    padding: $spacing-lg $spacing-md;
+    padding-block: 40px;
 
     &__container {
-        max-width: 800px;
-        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.about-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__body {
+        max-width: 400px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 10px;
+        border: 2px solid $accent-color;
+
+        @media (min-width: $bp-tablet) {
+            max-width: 600px;
+            justify-content: space-between;
+            padding: 20px;
+        }
     }
 
-    &__text {
-        font-size: $lg;
+    &__image {
+        width: 100px;
+        height: 100px;
+
+        @media (min-width: $bp-tablet) {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &__title {
         text-align: center;
+        font-size: $lg;
+
+        @media (min-width: $bp-tablet) {
+            @include title($xxl, $main-color);
+        }
+    }
+
+}
+
+
+.about-main {
+
+    &__text {
+        max-width: 400px;
+        text-align: center;
+        font-size: $sm;
+        line-height: 1.7;
+
+        @media (min-width: $bp-tablet) {
+            font-size: $lg;
+            max-width: 600px;
+        }
+    }
+}
+
+.about-footer {
+
+    &__register {
+        color: $accent-color;
+        font-size: $lg;
+        border: 1px solid $accent-color ;
+        border-radius: $border-radius;
+        padding: $spacing-sm;
+
+        @media (min-width: $bp-tablet) {
+            @include form-btn($cards-background-color,
+                $border-radius,
+                $second-color,
+                $main-font,
+                $sm,
+                $spacing-md,
+                $transition,
+                $accent-color)
+        }
+    }
+
+    &__welcome {
+        color: $accent-color;
+        font-size: $lg;
+
+        @media (min-width: $bp-tablet) {
+            font-size: $xxl;
+
+        }
     }
 }
 </style>

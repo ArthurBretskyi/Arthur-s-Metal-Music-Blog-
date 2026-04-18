@@ -470,9 +470,11 @@ onUnmounted(() => timers.forEach(clearTimeout))
     }
 
     &__col {
+        height: 100%;
         flex: 1;
         max-width: 100%;
-        aspect-ratio: 1;
+        // aspect-ratio: 1;
+
     }
 
     &__photo {
@@ -480,6 +482,10 @@ onUnmounted(() => timers.forEach(clearTimeout))
         height: 100%;
         object-fit: cover;
         border-radius: 4px;
+        box-shadow:
+            0 0 12px rgba(100, 160, 255, 0.9),
+            // 0 0 30px rgba(100, 160, 255, 0.5),
+            // 0 0 60px rgba(100, 160, 255, 0.2);
     }
 
     &__slogan {

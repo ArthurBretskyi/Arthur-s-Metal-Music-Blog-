@@ -16,7 +16,11 @@
                             <li class="menu__item"><router-link :to="{ name: 'Releases' }"
                                     class="menu__link">Releases</router-link>
                             </li>
-                            <li class="menu__item"><router-link :to="{ name: 'Admin' }"
+                            <li v-if="user" class="menu__item"><router-link :to="{ name: 'Add-Release' }"
+                                    class="menu__link">Add
+                                    Release</router-link>
+                            </li>
+                            <li v-if="isAdmin" class="menu__item"><router-link :to="{ name: 'Admin' }"
                                     class="menu__link">Admin</router-link>
                             </li>
                         </ul>
@@ -44,14 +48,13 @@ import UserMenu from '@/components/Header/UserMenu.vue'
 import { useUiStore } from '@/stores/ui';
 import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue'
 
 const store = useUiStore()
 const { isMenuOpen, isAuthModalOpen } = storeToRefs(store)
 const { toggleMenu, toggleAuthModal } = store
 
 const authStore = useAuthStore()
-const { user } = storeToRefs(authStore)
+const { user, isAdmin } = storeToRefs(authStore)
 </script>
 
 <style lang="scss">
@@ -72,15 +75,7 @@ const { user } = storeToRefs(authStore)
     &__left {}
 
     &__title {
-        font-size: $xxl;
-        background-image: url("@/assets/pictures/fire.jpg");
-        background-size: cover;
-        background-position: center;
-
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 0.4px $main-color;
+        @include title($xxl, $main-color)
     }
 
     &__center {
