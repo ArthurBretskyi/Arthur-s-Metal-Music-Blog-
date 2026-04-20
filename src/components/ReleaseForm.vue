@@ -80,6 +80,7 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useReleasesStore } from '@/stores/releases'
 import { useGenresStore } from '@/stores/genres'
+import { useAuthStore } from '@/stores/auth'
 import { uploadImage } from '@/utils/uploadImage.js'
 import StarRating from '@/components/StarRating.vue'
 
@@ -90,6 +91,9 @@ const genresStore = useGenresStore()
 
 const { getItemsList: genres } = storeToRefs(genresStore)
 const genreNames = computed(() => genres.value.map(g => g.name))
+
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
 
 const coverFile = ref(null)
 const coverPreview = ref(null)
@@ -112,7 +116,7 @@ async function onSubmit() {
         coverUrl = await uploadImage(coverFile.value)
     }
 
-    await releasesStore.addNewRelease({ ...newRelease, cover: coverUrl })
+    await releasesStore.addNewRelease({ ...newRelease, cover: coverUrl, userId: user.value.uid })
 
     newRelease.band = ''
     newRelease.album = ''

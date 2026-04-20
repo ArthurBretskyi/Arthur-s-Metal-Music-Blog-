@@ -50,7 +50,7 @@ const { toggleAuthModal } = uiStore
 
 <style lang="scss" scoped>
 .about {
-    padding-block: 40px;
+    padding: $spacing-lg $spacing-md;
 
     &__container {
         display: flex;

@@ -17,9 +17,9 @@
             </div>
             <!-- Слоган статичний -->
             <div class="hero__mobile-slogan">
-                <span class="hero__mobile-word">Metal</span>
-                <span class="hero__mobile-word">Up Your</span>
-                <span class="hero__mobile-word">Ass</span>
+                <span class="hero__mobile-word">Metal Up Your Ass</span>
+                <!-- <span class="hero__mobile-word">Up Your</span>
+                <span class="hero__mobile-word">Ass</span> -->
             </div>
         </template>
 
@@ -60,6 +60,8 @@ import ozzy from '@/assets/pictures/home/Ozzy.png'
 import nergal from '@/assets/pictures/home/Nergal.png'
 import peter from '@/assets/pictures/home/Peter Steele.png'
 import joe from '@/assets/pictures/home/Joe Duplantier.png'
+import fisher from '@/assets/pictures/home/George Corpsegrinder Fisher.png'
+import sigurd from '@/assets/pictures/home/Sigurd Wongraven.png'
 import semargl from '@/assets/pictures/home/Semargl.png'
 import master from '@/assets/pictures/home/master-of-puppets.WEBP'
 import rust from '@/assets/pictures/home/Rust In Peace.jpg'
@@ -74,6 +76,8 @@ import october from '@/assets/pictures/home/october rust.jpg'
 import obs from '@/assets/pictures/home/OBS.jpg'
 import sirius from '@/assets/pictures/home/FROM MARS TO SIRIUS.jpg'
 import sathanas from '@/assets/pictures/home/De-Mysteriis-Dom-Sathanas.jpg'
+import cannibal from '@/assets/pictures/home/cannibal-corpse.WEBP'
+import rebel from '@/assets/pictures/home/rebel.jpg'
 
 const items = reactive([
     { src: dave, alt: 'Dave Mustaine', showPhoto: false },
@@ -87,6 +91,8 @@ const items = reactive([
     { src: nergal, alt: 'Nergal', showPhoto: false },
     { src: peter, alt: 'Peter Steele', showPhoto: false },
     { src: joe, alt: 'Joe Duplantier', showPhoto: false },
+    { src: fisher, alt: 'George Corpsegrinder Fisher', showPhoto: false },
+    { src: sigurd, alt: 'Sigurd Wongraven', showPhoto: false },
     { src: semargl, alt: 'Semargl', showPhoto: false },
     { src: master, alt: 'master of puppets', showPhoto: false },
     { src: rust, alt: 'Rust In Peace', showPhoto: false },
@@ -101,6 +107,8 @@ const items = reactive([
     { src: obs, alt: 'obs', showPhoto: false },
     { src: sirius, alt: 'sirius', showPhoto: false },
     { src: sathanas, alt: 'sathanas', showPhoto: false },
+    { src: cannibal, alt: 'cannibal', showPhoto: false },
+    { src: rebel, alt: 'rebel', showPhoto: false },
 ])
 
 const canvasRef = ref(null)
@@ -425,7 +433,7 @@ onUnmounted(() => timers.forEach(clearTimeout))
 
     &__mobile-word {
         display: block;
-        font-size: 2.8rem;
+        font-size: $lg;
         font-weight: 700;
         color: #fff;
         text-transform: uppercase;
@@ -473,8 +481,7 @@ onUnmounted(() => timers.forEach(clearTimeout))
         height: 100%;
         flex: 1;
         max-width: 100%;
-        // aspect-ratio: 1;
-
+        aspect-ratio: 1;
     }
 
     &__photo {
@@ -483,7 +490,7 @@ onUnmounted(() => timers.forEach(clearTimeout))
         object-fit: cover;
         border-radius: 4px;
         box-shadow:
-            0 0 12px rgba(100, 160, 255, 0.9),
+            0 0 12px $accent-color,
             // 0 0 30px rgba(100, 160, 255, 0.5),
             // 0 0 60px rgba(100, 160, 255, 0.2);
     }
@@ -505,7 +512,7 @@ onUnmounted(() => timers.forEach(clearTimeout))
             0 0 30px rgba(100, 160, 255, 0.5),
             0 0 60px rgba(100, 160, 255, 0.2);
 
-        @media (max-width: 767px) {
+        @media (max-width: $bp-tablet) {
             display: none; // ховаємо десктопні елементи на мобайлі
         }
     }

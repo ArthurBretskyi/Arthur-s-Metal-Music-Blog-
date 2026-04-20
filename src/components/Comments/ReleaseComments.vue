@@ -83,6 +83,7 @@ async function onDeleteComment(id) {
         display: flex;
         flex-direction: column;
         gap: $spacing-lg;
+        padding: 0;
     }
 
     &__title {
