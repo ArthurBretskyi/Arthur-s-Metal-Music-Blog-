@@ -18,6 +18,7 @@
                     <div class="release__rating">
                         <StarRating :modelValue="currentRelease.rating ?? 0" :readonly="true" />
                     </div>
+                    <div class="release__author">Author: {{ authorName }}</div>
                     <div class="release__action">
                         <router-link v-if="user && canEdit" class="release__edit"
                             :to="{ name: 'Edit', params: { id: currentRelease.id } }">
@@ -35,18 +36,24 @@
 import { useRoute } from 'vue-router'
 import { useReleasesStore } from '@/stores/releases';
 import { useAuthStore } from '@/stores/auth'
-import { computed } from 'vue'
+import { useUsersStore } from '@/stores/users'
+import { ref, computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia';
 import StarRating from '@/components/StarRating.vue';
 import ReleaseComments from '@/components/Comments/ReleaseComments.vue'
 
 const route = useRoute()
 
-const store = useReleasesStore()
-const { getItemsList: releases } = storeToRefs(store)
+const releasesStore = useReleasesStore()
+const { getItemsList: releases } = storeToRefs(releasesStore)
 
 const authStore = useAuthStore()
 const { user, isAdmin } = storeToRefs(authStore)
+
+const usersStore = useUsersStore()
+const { getUserByUID } = usersStore
+const author = ref(null)
+const authorName = computed(() => author.value?.firstName || 'Unknown')
 
 const searchingId = route.params.id
 const currentRelease = computed(() =>
@@ -57,6 +64,13 @@ const canEdit = computed(() => {
     if (!currentRelease.value) return false
     if (isAdmin.value) return true
     return user.value?.uid === currentRelease.value.userId
+})
+
+onMounted(async () => {
+    if (!releasesStore.getItemsList.length) await releasesStore.loadItemsList()
+    if (currentRelease.value?.userId) {
+        author.value = await getUserByUID(currentRelease.value.userId)
+    }
 })
 </script>
 

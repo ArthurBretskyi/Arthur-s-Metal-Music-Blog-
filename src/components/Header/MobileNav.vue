@@ -13,10 +13,11 @@
                     <li class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'Releases' }"
                             class="menu-mobile__link">Releases</router-link>
                     </li>
-                    <li class="menu__item"><router-link :to="{ name: 'Add-Release' }" class="menu__link">Add
+                    <li v-if="user" class="menu-mobile__item"><router-link @click="emit('close')"
+                            :to="{ name: 'Add-Release' }" class="menu-mobile__link">Add
                             Release</router-link>
                     </li>
-                    <li class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'Admin' }"
+                    <li v-if="isAdmin" class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'Admin' }"
                             class="menu-mobile__link">Admin</router-link>
                     </li>
                 </ul>
@@ -53,7 +54,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const authStore = useAuthStore()
-const { user } = storeToRefs(authStore)
+const { user, isAdmin } = storeToRefs(authStore)
 const { logout } = authStore
 
 const UiStore = useUiStore()

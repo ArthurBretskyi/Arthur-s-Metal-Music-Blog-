@@ -7,6 +7,7 @@
     <Transition>
       <AuthModal v-if="isAuthModalOpen" />
     </Transition>
+    <ScrollToTop />
   </div>
   <AppFooter />
 </template>
@@ -15,6 +16,7 @@
 import AppHeader from '@/components/Header/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
 import AuthModal from './components/Auth/AuthModal.vue';
+import ScrollToTop from '@/components/ScrollToTop.vue'
 import { useUiStore } from './stores/ui';
 import { storeToRefs } from 'pinia';
 
