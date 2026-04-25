@@ -69,8 +69,7 @@ const emit = defineEmits(['searchByGenre'])
         cursor: pointer;
         transition: $transition;
 
-        &:hover,
-        &.active {
+        &:hover {
             background: $accent-color;
             color: $background-color;
         }

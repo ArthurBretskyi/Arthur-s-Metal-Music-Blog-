@@ -63,21 +63,24 @@ import joe from '@/assets/pictures/home/Joe Duplantier.png'
 import fisher from '@/assets/pictures/home/George Corpsegrinder Fisher.png'
 import sigurd from '@/assets/pictures/home/Sigurd Wongraven.png'
 import semargl from '@/assets/pictures/home/Semargl.png'
-import master from '@/assets/pictures/home/master-of-puppets.WEBP'
-import rust from '@/assets/pictures/home/Rust In Peace.jpg'
-import beast from '@/assets/pictures/home/number-of-the-beast_2.png'
-import reign from '@/assets/pictures/home/reign-in-blood.WEBP'
-import filosofem from '@/assets/pictures/home/filosofem.jpg'
-import vulgar from '@/assets/pictures/home/Vulgar Display of Power_2.png'
+import dani from '@/assets/pictures/home/Dani.png'
+import master from '@/assets/pictures/home/master-of-puppets.png'
+import rust from '@/assets/pictures/home/Rust In Peace.png'
+import beast from '@/assets/pictures/home/number-of-the-beast.png'
+import reign from '@/assets/pictures/home/reign-in-blood.png'
+import filosofem from '@/assets/pictures/home/filosofem.png'
+import vulgar from '@/assets/pictures/home/Vulgar Display of Power.png'
 import ozzmosis from '@/assets/pictures/home/Ozzmosis.jpg'
 import painkiller from '@/assets/pictures/home/Painkiller.jpg'
-import thelema from '@/assets/pictures/home/Thelema.jpg'
+import thelema from '@/assets/pictures/home/Thelema.png'
 import october from '@/assets/pictures/home/october rust.jpg'
 import obs from '@/assets/pictures/home/OBS.jpg'
-import sirius from '@/assets/pictures/home/FROM MARS TO SIRIUS.jpg'
-import sathanas from '@/assets/pictures/home/De-Mysteriis-Dom-Sathanas.jpg'
-import cannibal from '@/assets/pictures/home/cannibal-corpse.WEBP'
-import rebel from '@/assets/pictures/home/rebel.jpg'
+import sirius from '@/assets/pictures/home/FROM MARS TO SIRIUS.png'
+import sathanas from '@/assets/pictures/home/De-Mysteriis-Dom-Sathanas.png'
+import cannibal from '@/assets/pictures/home/cannibal-corpse.png'
+import medieval from '@/assets/pictures/home/medieval.png'
+import cruelty from '@/assets/pictures/home/cruelty and the beast.png'
+import spiritual from '@/assets/pictures/home/Spiritual Black Dimensions.png'
 
 const items = reactive([
     { src: dave, alt: 'Dave Mustaine', showPhoto: false },
@@ -93,6 +96,7 @@ const items = reactive([
     { src: joe, alt: 'Joe Duplantier', showPhoto: false },
     { src: fisher, alt: 'George Corpsegrinder Fisher', showPhoto: false },
     { src: sigurd, alt: 'Sigurd Wongraven', showPhoto: false },
+    { src: dani, alt: 'Dani', showPhoto: false },
     { src: semargl, alt: 'Semargl', showPhoto: false },
     { src: master, alt: 'master of puppets', showPhoto: false },
     { src: rust, alt: 'Rust In Peace', showPhoto: false },
@@ -108,7 +112,9 @@ const items = reactive([
     { src: sirius, alt: 'sirius', showPhoto: false },
     { src: sathanas, alt: 'sathanas', showPhoto: false },
     { src: cannibal, alt: 'cannibal', showPhoto: false },
-    { src: rebel, alt: 'rebel', showPhoto: false },
+    { src: medieval, alt: 'Dark Medieval Times', showPhoto: false },
+    { src: cruelty, alt: 'cruelty and the beast', showPhoto: false },
+    { src: spiritual, alt: 'Spiritual Black Dimensions', showPhoto: false },
 ])
 
 const canvasRef = ref(null)

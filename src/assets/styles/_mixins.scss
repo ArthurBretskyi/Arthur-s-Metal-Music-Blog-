@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @mixin underline-hover($color) {
   position: relative;
 
@@ -46,7 +48,7 @@
   $accent-color
 ) {
   background: transparent;
-  border: 1px solid lighten($cards-background-color, 15%);
+  border: 1px solid color.adjust($cards-background-color, $lightness: 8%);
   border-radius: $border-radius;
   color: $second-color;
   font-family: $main-font;
