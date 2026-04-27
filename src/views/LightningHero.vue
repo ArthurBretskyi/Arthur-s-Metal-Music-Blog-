@@ -64,16 +64,14 @@ import fisher from '@/assets/pictures/home/George Corpsegrinder Fisher.png'
 import sigurd from '@/assets/pictures/home/Sigurd Wongraven.png'
 import semargl from '@/assets/pictures/home/Semargl.png'
 import dani from '@/assets/pictures/home/Dani.png'
+import shagrath from '@/assets/pictures/home/Shagrath.png'
 import master from '@/assets/pictures/home/master-of-puppets.png'
 import rust from '@/assets/pictures/home/Rust In Peace.png'
 import beast from '@/assets/pictures/home/number-of-the-beast.png'
 import reign from '@/assets/pictures/home/reign-in-blood.png'
 import filosofem from '@/assets/pictures/home/filosofem.png'
 import vulgar from '@/assets/pictures/home/Vulgar Display of Power.png'
-import ozzmosis from '@/assets/pictures/home/Ozzmosis.jpg'
-import painkiller from '@/assets/pictures/home/Painkiller.jpg'
 import thelema from '@/assets/pictures/home/Thelema.png'
-import october from '@/assets/pictures/home/october rust.jpg'
 import obs from '@/assets/pictures/home/OBS.jpg'
 import sirius from '@/assets/pictures/home/FROM MARS TO SIRIUS.png'
 import sathanas from '@/assets/pictures/home/De-Mysteriis-Dom-Sathanas.png'
@@ -97,6 +95,7 @@ const items = reactive([
     { src: fisher, alt: 'George Corpsegrinder Fisher', showPhoto: false },
     { src: sigurd, alt: 'Sigurd Wongraven', showPhoto: false },
     { src: dani, alt: 'Dani', showPhoto: false },
+    { src: shagrath, alt: 'Shagrath', showPhoto: false },
     { src: semargl, alt: 'Semargl', showPhoto: false },
     { src: master, alt: 'master of puppets', showPhoto: false },
     { src: rust, alt: 'Rust In Peace', showPhoto: false },
@@ -104,10 +103,7 @@ const items = reactive([
     { src: reign, alt: 'reign in blood', showPhoto: false },
     { src: filosofem, alt: 'filosofem', showPhoto: false },
     { src: vulgar, alt: 'vulgar display of power', showPhoto: false },
-    { src: ozzmosis, alt: 'ozzmosis', showPhoto: false },
-    { src: painkiller, alt: 'painkiller', showPhoto: false },
     { src: thelema, alt: 'thelema', showPhoto: false },
-    { src: october, alt: 'october rust', showPhoto: false },
     { src: obs, alt: 'obs', showPhoto: false },
     { src: sirius, alt: 'sirius', showPhoto: false },
     { src: sathanas, alt: 'sathanas', showPhoto: false },
