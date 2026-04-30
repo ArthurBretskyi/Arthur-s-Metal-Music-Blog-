@@ -10,6 +10,8 @@ import EditView from '@/views/EditView.vue'
 import ReleasesView from '@/views/ReleasesView.vue'
 import AddReleaseView from '@/views/AddReleaseView.vue'
 import AdminUsersView from '@/views/Admin/AdminUsersView.vue'
+import ProfileView from '@/views/Profile/ProfileView.vue'
+import ProfileEditView from '@/views/Profile/ProfileEditView.vue'
 
 const routes = [
   {
@@ -61,6 +63,18 @@ const routes = [
     path: '/add-release',
     name: 'Add-Release',
     component: AddReleaseView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfileView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/profile/edit',
+    name: 'Profile-Edit',
+    component: ProfileEditView,
     meta: { requiresAuth: true },
   },
 ]

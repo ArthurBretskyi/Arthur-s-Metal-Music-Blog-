@@ -7,13 +7,18 @@
 
         <Transition name="dropdown">
             <div v-if="isOpen" class="user-menu__dropdown">
-                <div class="user-menu__info">
-                    <span class="user-menu__name">{{ displayName }}</span>
-                    <span class="user-menu__email">{{ email }}</span>
+                <div class="user-menu__body">
+                    <div class="user-menu__info">
+                        <span class="user-menu__name">{{ displayName }}</span>
+                        <span class="user-menu__email">{{ email }}</span>
+                    </div>
+                    <div class="user-menu__profile">
+                        <router-link :to="{ name: 'Profile' }" class="user-menu__profile-link">Profile</router-link>
+                    </div>
+                    <button class="user-menu__logout" @click="onLogout" type="button">
+                        LogOut
+                    </button>
                 </div>
-                <button class="user-menu__logout" @click="onLogout" type="button">
-                    Вийти
-                </button>
             </div>
         </Transition>
     </div>
@@ -107,12 +112,19 @@ async function onLogout() {
         z-index: 100;
     }
 
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding: $spacing-md;
+    }
+
     &__info {
         display: flex;
         flex-direction: column;
         gap: 4px;
-        padding: $spacing-md;
-        border-bottom: 1px solid color.adjust($cards-background-color, $lightness: 8%);
+        padding-block-end: $spacing-md;
+        border-bottom: 1px solid color.adjust($accent-color, $lightness: 8%);
     }
 
     &__name {
@@ -126,14 +138,26 @@ async function onLogout() {
         color: $second-color;
     }
 
+    &__profile-link {
+        font-size: $lg;
+        font-weight: 500;
+        color: $main-color;
+    }
+
     &__logout {
-        display: block;
-        width: 100%;
-        padding: $spacing-md;
-        text-align: left;
-        font-size: $sm;
-        color: $decor-color;
-        transition: $transition;
+        align-self: flex-start;
+        @include form-btn($cards-background-color,
+            $border-radius,
+            $decor-color,
+            $main-font,
+            $sm,
+            $spacing-md,
+            $transition,
+            $decor-color );
+        color: $main-color;
+
+        border-left: 1px solid $decor-color;
+        // border-bottom: 1px solid $decor-color;
 
         &:hover {
             background-color: color.adjust($cards-background-color, $lightness: 4%);

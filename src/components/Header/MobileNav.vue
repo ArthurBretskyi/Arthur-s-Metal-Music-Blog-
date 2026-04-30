@@ -35,9 +35,15 @@
                         <span class="user-menu__name">{{ displayName }}</span>
                         <span class="user-menu__email">{{ email }}</span>
                     </div>
-                    <button class="user-menu__logout" @click="onLogout" type="button">
-                        Вийти
-                    </button>
+                    <div class="user-menu__actions">
+                        <div class="user-menu__profile">
+                            <router-link :to="{ name: 'Profile' }" @click="emit('close')"
+                                class="user-menu__profile-link">Profile</router-link>
+                        </div>
+                        <button class="user-menu__logout" @click="onLogout" type="button">
+                            LogOut
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -179,29 +185,49 @@ async function onLogout() {
     &__info {
         display: flex;
         flex-direction: column;
-        gap: 4px;
-        padding: $spacing-md;
+        gap: 14px;
+        margin-block-start: $spacing-md;
+        margin-block-end: $spacing-md;
+        padding-block-end: $spacing-md;
         border-bottom: 1px solid color.adjust($cards-background-color, $lightness: 8%);
     }
 
     &__name {
-        font-size: $base-size;
+        font-size: $xl;
         font-weight: 500;
         color: $main-color;
     }
 
     &__email {
-        font-size: $sm;
+        font-size: $lg;
         color: $second-color;
     }
 
+    &__actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__profile-link {
+        font-size: $xl;
+        font-weight: 500;
+        color: $main-color;
+    }
+
     &__logout {
-        display: block;
-        width: 100%;
-        padding: $spacing-md;
-        text-align: left;
-        font-size: $sm;
-        color: $decor-color;
+        align-self: flex-start;
+        @include form-btn($cards-background-color,
+            $border-radius,
+            $decor-color,
+            $main-font,
+            $sm,
+            $spacing-md,
+            $transition,
+            $decor-color );
+        color: $main-color;
+        font-size: $lg;
+        border-left: 1px solid $decor-color;
     }
 }
 </style>

@@ -18,34 +18,25 @@
             <!-- Слоган статичний -->
             <div class="hero__mobile-slogan">
                 <span class="hero__mobile-word">Metal Up Your Ass</span>
-                <!-- <span class="hero__mobile-word">Up Your</span>
-                <span class="hero__mobile-word">Ass</span> -->
             </div>
         </template>
 
         <!-- Десктоп -->
         <template v-else>
-            <Transition name="banner">
-                <div v-if="showBanner && bannerItem" class="hero__banner">
-                    <img :src="bannerItem.src" :alt="bannerItem.alt" class="hero__banner-img" />
-                    <Transition name="slogan">
-                        <div v-if="showSlogan" class="hero__slogan">Metal Up Your Ass</div>
-                    </Transition>
-                </div>
-            </Transition>
-
             <div class="hero__cols">
-                <div class="hero__col" v-for="(item, index) in currentItems" :key="index">
+                <div class="hero__col" v-for="(col, index) in columns" :key="index">
                     <Transition name="photo">
-                        <img v-if="item.showPhoto" :src="item.src" :alt="item.alt" class="hero__photo" />
+                        <img v-if="col.showPhoto && col.src" :src="col.src" :alt="col.alt" class="hero__photo" />
                     </Transition>
                 </div>
             </div>
+
+            <div class="hero__slogan">Metal Up Your Ass</div>
         </template>
 
     </div>
 </template>
-  
+
 <script setup>
 import { reactive, ref, onMounted, onUnmounted } from 'vue'
 
@@ -63,7 +54,6 @@ import joe from '@/assets/pictures/home/Joe Duplantier.png'
 import fisher from '@/assets/pictures/home/George Corpsegrinder Fisher.png'
 import sigurd from '@/assets/pictures/home/Sigurd Wongraven.png'
 import semargl from '@/assets/pictures/home/Semargl.png'
-import dani from '@/assets/pictures/home/Dani.png'
 import shagrath from '@/assets/pictures/home/Shagrath.png'
 import master from '@/assets/pictures/home/master-of-puppets.png'
 import rust from '@/assets/pictures/home/Rust In Peace.png'
@@ -80,60 +70,81 @@ import medieval from '@/assets/pictures/home/medieval.png'
 import cruelty from '@/assets/pictures/home/cruelty and the beast.png'
 import spiritual from '@/assets/pictures/home/Spiritual Black Dimensions.png'
 
-const items = reactive([
-    { src: dave, alt: 'Dave Mustaine', showPhoto: false },
-    { src: james, alt: 'James Hetfield', showPhoto: false },
-    { src: tom, alt: 'Tom Araya', showPhoto: false },
-    { src: bruce, alt: 'Bruce Dickinsona', showPhoto: false },
-    { src: varg, alt: 'Varg Vikernes', showPhoto: false },
-    { src: dime, alt: 'Dime', showPhoto: false },
-    { src: rob, alt: 'Rob Halford', showPhoto: false },
-    { src: ozzy, alt: 'Ozzy', showPhoto: false },
-    { src: nergal, alt: 'Nergal', showPhoto: false },
-    { src: peter, alt: 'Peter Steele', showPhoto: false },
-    { src: joe, alt: 'Joe Duplantier', showPhoto: false },
-    { src: fisher, alt: 'George Corpsegrinder Fisher', showPhoto: false },
-    { src: sigurd, alt: 'Sigurd Wongraven', showPhoto: false },
-    { src: dani, alt: 'Dani', showPhoto: false },
-    { src: shagrath, alt: 'Shagrath', showPhoto: false },
-    { src: semargl, alt: 'Semargl', showPhoto: false },
-    { src: master, alt: 'master of puppets', showPhoto: false },
-    { src: rust, alt: 'Rust In Peace', showPhoto: false },
-    { src: beast, alt: 'number of the beast', showPhoto: false },
-    { src: reign, alt: 'reign in blood', showPhoto: false },
-    { src: filosofem, alt: 'filosofem', showPhoto: false },
-    { src: vulgar, alt: 'vulgar display of power', showPhoto: false },
-    { src: thelema, alt: 'thelema', showPhoto: false },
-    { src: obs, alt: 'obs', showPhoto: false },
-    { src: sirius, alt: 'sirius', showPhoto: false },
-    { src: sathanas, alt: 'sathanas', showPhoto: false },
-    { src: cannibal, alt: 'cannibal', showPhoto: false },
-    { src: medieval, alt: 'Dark Medieval Times', showPhoto: false },
-    { src: cruelty, alt: 'cruelty and the beast', showPhoto: false },
-    { src: spiritual, alt: 'Spiritual Black Dimensions', showPhoto: false },
-])
+const items = [
+    { src: dave, alt: 'Dave Mustaine' },
+    { src: james, alt: 'James Hetfield' },
+    { src: tom, alt: 'Tom Araya' },
+    { src: bruce, alt: 'Bruce Dickinson' },
+    { src: varg, alt: 'Varg Vikernes' },
+    { src: dime, alt: 'Dime' },
+    { src: rob, alt: 'Rob Halford' },
+    { src: ozzy, alt: 'Ozzy' },
+    { src: nergal, alt: 'Nergal' },
+    { src: peter, alt: 'Peter Steele' },
+    { src: joe, alt: 'Joe Duplantier' },
+    { src: fisher, alt: 'George Corpsegrinder Fisher' },
+    { src: sigurd, alt: 'Sigurd Wongraven' },
+    { src: semargl, alt: 'Semargl' },
+    { src: shagrath, alt: 'Shagrath' },
+    { src: master, alt: 'master of puppets' },
+    { src: rust, alt: 'Rust In Peace' },
+    { src: beast, alt: 'number of the beast' },
+    { src: reign, alt: 'reign in blood' },
+    { src: filosofem, alt: 'filosofem' },
+    { src: vulgar, alt: 'vulgar display of power' },
+    { src: thelema, alt: 'thelema' },
+    { src: obs, alt: 'obs' },
+    { src: sirius, alt: 'sirius' },
+    { src: sathanas, alt: 'sathanas' },
+    { src: cannibal, alt: 'cannibal' },
+    { src: medieval, alt: 'Dark Medieval Times' },
+    { src: cruelty, alt: 'cruelty and the beast' },
+    { src: spiritual, alt: 'Spiritual Black Dimensions' },
+]
 
 const canvasRef = ref(null)
 const flashRef = ref(null)
 const timers = []
 
-const bannerItem = ref(null)
-const showBanner = ref(false)
-const showSlogan = ref(false)
-
-const currentItems = ref([])
-
 const isMobile = () => window.matchMedia('(max-width: 767px)').matches
+
+const columns = reactive([
+    { src: null, alt: '', showPhoto: false },
+    { src: null, alt: '', showPhoto: false },
+    { src: null, alt: '', showPhoto: false },
+])
 
 const mobileBannerCurrent = ref(null)
 const mobileBannerNext = ref(null)
 const showNext = ref(false)
 
+// ---- Послідовності колонок ----
+const sequences = [
+    [0, 1, 2],
+    [1, 2, 0],
+    [2, 0, 1],
+    [0, 2, 1],
+    [2, 1, 0],
+    [1, 0, 2],
+]
+let seqIndex = 0
+let itemIndex = 0
+
+function nextItem() {
+    const item = items[itemIndex]
+    itemIndex = (itemIndex + 1) % items.length
+    return item
+}
+
+function nextSequence() {
+    const seq = sequences[seqIndex]
+    seqIndex = (seqIndex + 1) % sequences.length
+    return seq
+}
+
 function t(fn, delay) {
     timers.push(setTimeout(fn, delay))
 }
-
-// ---- Canvas утиліти ----
 
 function randBetween(a, b) {
     return a + Math.random() * (b - a)
@@ -174,8 +185,6 @@ function drawBranch(ctx, x, y, angle, length, depth) {
     }
 }
 
-// ---- Основна функція удару ----
-
 function strike(xFrac) {
     return new Promise((resolve) => {
         const canvas = canvasRef.value
@@ -191,13 +200,11 @@ function strike(xFrac) {
         const x = canvas.width * xFrac
         const mainPts = generateBolt(x, 0, x + randBetween(-30, 30), canvas.height, 60, 9)
 
-        // Малюємо болт
         drawBolt(ctx, mainPts, 0.15, 18, '#6699ff')
         drawBolt(ctx, mainPts, 0.25, 8, '#88bbff')
         drawBolt(ctx, mainPts, 0.9, 2, '#ddeeff')
         drawBolt(ctx, mainPts, 0.7, 1, '#ffffff')
 
-        // Гілки
         for (let i = 1; i < mainPts.length - 1; i += 3) {
             if (Math.random() > 0.65) {
                 const dir = Math.random() > 0.5 ? 1 : -1
@@ -206,20 +213,18 @@ function strike(xFrac) {
             }
         }
 
-        // Блимання екрану
-        flash.style.opacity = '0.55'
-        t(() => { flash.style.opacity = '0.15' }, 50)
-        t(() => { flash.style.opacity = '0.40' }, 100)
+        flash.style.opacity = '0.1'
+        t(() => { flash.style.opacity = '0.04' }, 50)
+        t(() => { flash.style.opacity = '0.08' }, 100)
         t(() => { flash.style.opacity = '0' }, 180)
 
-        // Затухання болту
         let alpha = 1
         const fadeInterval = setInterval(() => {
             alpha -= 0.06
             if (alpha <= 0) {
                 clearInterval(fadeInterval)
                 ctx.clearRect(0, 0, canvas.width, canvas.height)
-                resolve() // повідомляємо що удар завершено
+                resolve()
                 return
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -231,70 +236,59 @@ function strike(xFrac) {
     })
 }
 
-function getRandomItems(arr, count) {
-    const shuffled = [...arr].sort(() => Math.random() - 0.5)
-    return shuffled.slice(0, count)
-}
-
-// ---- Цикл ----
+// ---- Десктоп ----
 
 async function runCycle() {
-    const HOLD = 2500
-    const FADE = 400
-
-    currentItems.value = getRandomItems(items, 3)
-
-    // Фаза 1 — три блискавки + фото
-    for (let i = 0; i < currentItems.value.length; i++) {
-        await strike(0.2 + i * 0.3)
-        currentItems.value[i].showPhoto = true
+    // Перший запуск — заповнюємо всі три колонки
+    const firstSeq = nextSequence()
+    for (const colIndex of firstSeq) {
+        await strike(0.2 + colIndex * 0.3)
+        const item = nextItem()
+        columns[colIndex].src = item.src
+        columns[colIndex].alt = item.alt
+        columns[colIndex].showPhoto = true
         await pause(500)
     }
 
-    await pause(HOLD)
+    // Далі — нескінченне оновлення по одній колонці
+    while (true) {
+        await pause(2000)
 
-    // Фаза 2 — одне фото розтягується в банер
-    const randomIndex = Math.floor(Math.random() * currentItems.value.length)
-    bannerItem.value = currentItems.value[randomIndex]
+        const seq = nextSequence()
 
-    // Ховаємо всі три фото одразу
-    currentItems.value.forEach(item => { item.showPhoto = false })
+        for (const colIndex of seq) {
+            // Стара зникає
+            columns[colIndex].showPhoto = false
+            await pause(400) // чекаємо поки transition завершиться
 
-    // Показуємо банер
-    showBanner.value = true
-    await pause(800) // чекаємо поки розтягнеться
-
-    // Фаза 3 — напис
-    showSlogan.value = true
-    await pause(2000)
-    showSlogan.value = false
-    await pause(400)
-
-    // Фаза 4 — банер зникає
-    showBanner.value = false
-    await pause(600)
-
-    // Коротка пауза і новий цикл
-    await pause(300)
-    runCycle()
+            // Нова з'являється
+            await strike(0.2 + colIndex * 0.3)
+            const item = nextItem()
+            columns[colIndex].src = item.src
+            columns[colIndex].alt = item.alt
+            columns[colIndex].showPhoto = true
+            await pause(500)
+        }
+    }
 }
+
+// ---- Мобайл ----
 
 async function runBannerCycle() {
     mobileBannerCurrent.value = items[Math.floor(Math.random() * items.length)]
 
     while (true) {
         await pause(4000)
-        // Готуємо наступне фото (інше ніж поточне)
         let next
         do {
             next = items[Math.floor(Math.random() * items.length)]
         } while (next === mobileBannerCurrent.value)
 
         mobileBannerNext.value = next
-        showNext.value = true         // next з'являється поверх current
-        await pause(700)              // чекаємо поки crossfade завершиться
+        showNext.value = true
+        await pause(700)
         mobileBannerCurrent.value = mobileBannerNext.value
-        showNext.value = false        // прибираємо next (тепер current вже правильне)
+        showNext.value = false
         mobileBannerNext.value = null
     }
 }
@@ -324,9 +318,10 @@ onMounted(() => {
         runCycle()
     }
 })
+
 onUnmounted(() => timers.forEach(clearTimeout))
 </script>
-  
+
 <style lang="scss" scoped>
 .hero {
     position: relative;
@@ -348,12 +343,11 @@ onUnmounted(() => timers.forEach(clearTimeout))
             width: 100%;
             height: 100%;
             object-fit: cover;
-            // filter: brightness(0.95);
         }
     }
 
     &__mobile-img--next {
-        z-index: 2; // поверх current
+        z-index: 2;
     }
 
     &__mobile-slogan {
@@ -367,18 +361,16 @@ onUnmounted(() => timers.forEach(clearTimeout))
         align-items: center;
         gap: 8px;
         pointer-events: none;
-        animation: vibrate 4s ease-in-out infinite; // ← додаємо
+        animation: vibrate 4s ease-in-out infinite;
     }
 
     @keyframes vibrate {
 
-        // більшість часу — спокій
         0%,
         75% {
             transform: translate(0, 0);
         }
 
-        // удар — серія швидких зміщень
         76% {
             transform: translate(-3px, 1px);
         }
@@ -407,7 +399,6 @@ onUnmounted(() => timers.forEach(clearTimeout))
             transform: translate(0, 0);
         }
 
-        // коротка пауза і ще один удар
         88% {
             transform: translate(0, 0);
         }
@@ -424,10 +415,7 @@ onUnmounted(() => timers.forEach(clearTimeout))
             transform: translate(-1px, 1px);
         }
 
-        92% {
-            transform: translate(0, 0);
-        }
-
+        92%,
         100% {
             transform: translate(0, 0);
         }
@@ -440,7 +428,6 @@ onUnmounted(() => timers.forEach(clearTimeout))
         color: #fff;
         text-transform: uppercase;
         letter-spacing: 0.12em;
-        // Glow — імітація світіння від блискавки
         text-shadow:
             0 0 12px rgba(100, 160, 255, 0.9),
             0 0 30px rgba(100, 160, 255, 0.5),
@@ -476,7 +463,6 @@ onUnmounted(() => timers.forEach(clearTimeout))
         align-items: center;
         justify-content: center;
         gap: 20px;
-        // padding: 40px;
     }
 
     &__col {
@@ -491,15 +477,14 @@ onUnmounted(() => timers.forEach(clearTimeout))
         height: 100%;
         object-fit: cover;
         border-radius: 4px;
-        box-shadow:
-            0 0 12px $accent-color,
-            // 0 0 30px rgba(100, 160, 255, 0.5),
-            // 0 0 60px rgba(100, 160, 255, 0.2);
+        box-shadow: 0 0 12px $accent-color;
     }
 
     &__slogan {
         position: absolute;
-        inset: 0;
+        bottom: 48px;
+        left: 0;
+        right: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -509,44 +494,11 @@ onUnmounted(() => timers.forEach(clearTimeout))
         letter-spacing: 0.1em;
         text-transform: uppercase;
         z-index: 4;
+        pointer-events: none;
         text-shadow:
             0 0 12px rgba(100, 160, 255, 0.9),
             0 0 30px rgba(100, 160, 255, 0.5),
             0 0 60px rgba(100, 160, 255, 0.2);
-
-        @media (max-width: $bp-tablet) {
-            display: none; // ховаємо десктопні елементи на мобайлі
-        }
-    }
-
-    .slogan-enter-active {
-        transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .slogan-leave-active {
-        transition: opacity 0.4s ease;
-    }
-
-    .slogan-enter-from {
-        opacity: 0;
-        transform: scale(1.1);
-    }
-
-    .slogan-leave-to {
-        opacity: 0;
-    }
-
-    &__banner {
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        overflow: hidden;
-    }
-
-    &__banner-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
     }
 }
 
@@ -564,25 +516,6 @@ onUnmounted(() => timers.forEach(clearTimeout))
 }
 
 .photo-leave-to {
-    opacity: 0;
-}
-
-
-
-.banner-enter-active {
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.banner-leave-active {
-    transition: opacity 0.6s ease;
-}
-
-.banner-enter-from {
-    opacity: 0;
-    transform: scale(1.05);
-}
-
-.banner-leave-to {
     opacity: 0;
 }
 
