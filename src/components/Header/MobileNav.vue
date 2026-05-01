@@ -46,6 +46,10 @@
                     </div>
                 </div>
             </div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, rem. Ut assumenda eaque excepturi odio velit.
+                Consequatur sed aliquid fuga labore! Libero nemo quisquam impedit deserunt eos. Architecto qui vitae
+                praesentium consectetur voluptates eius delectus facilis! Similique, quae magnam sint autem eius quos,
+                cumque delectus saepe quas asperiores suscipit commodi?</p>
         </div>
     </div>
 </template>
@@ -54,7 +58,7 @@
 import { useAuthStore } from '@/stores/auth';
 import { useUiStore } from '@/stores/ui';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -88,7 +92,13 @@ async function onLogout() {
     router.push({ name: 'Home' })
 }
 
+onMounted(() => {
+    document.querySelector('.wrapper').style.overflow = 'hidden'
+})
 
+onUnmounted(() => {
+    document.querySelector('.wrapper').style.overflow = 'clip'
+})
 </script>
 
 <style lang="scss" scoped>
@@ -100,6 +110,7 @@ async function onLogout() {
     height: 100%;
     background-color: $cards-background-color;
     z-index: 100;
+    overflow-y: auto;
 
     &__container {
         display: flex;
