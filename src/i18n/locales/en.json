@@ -1,0 +1,13 @@
+{
+  "pages": {},
+  "components": {
+    "AppHeader": {
+      "home": "Home",
+      "about": "About",
+      "releases": "Releases",
+      "add-release": "Add-Release",
+      "admin": "Admin",
+      "register": "Register"
+    }
+  }
+}

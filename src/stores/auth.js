@@ -46,23 +46,10 @@ export const useAuthStore = defineStore('auth', () => {
       role.value = data.role || 'user'
       isAdminRaw.value = role.value === 'admin'
 
+      // мержимо кастомні поля з Firestore в user.value
       if (user.value) {
-        user.value.role = role.value
-        user.value.isAdmin = isAdminRaw.value
+        user.value = { ...user.value, ...data }
       }
-
-      return role.value
-    } else {
-      console.warn('User document not found. No role available yet.')
-      role.value = 'user'
-      isAdminRaw.value = false
-
-      if (user.value) {
-        user.value.role = role.value
-        user.value.isAdmin = false
-      }
-
-      return role.value
     }
   }
 
@@ -125,17 +112,14 @@ export const useAuthStore = defineStore('auth', () => {
         const userDocRef = doc(db, 'users', uid)
         await updateDoc(userDocRef, updatedData)
 
-        if (user.value) {
-          user.value = {
-            ...user.value,
-            ...updatedData,
-          }
+        const snap = await getDoc(userDocRef)
+        if (snap.exists()) {
+          user.value = { ...user.value, ...snap.data() }
+        }
 
-          if (updatedData.role) {
-            role.value = updatedData.role
-            isAdminRaw.value = role.value === 'admin'
-            user.value.isAdmin = isAdminRaw.value
-          }
+        if (updatedData.role) {
+          role.value = updatedData.role
+          isAdminRaw.value = role.value === 'admin'
         }
 
         return true

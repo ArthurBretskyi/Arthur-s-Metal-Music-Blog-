@@ -8,20 +8,20 @@
                 <nav class="header__menu menu">
                     <div class="menu__body">
                         <ul class="menu__list">
-                            <li class="menu__item"><router-link :to="{ name: 'Home' }" class="menu__link">Home</router-link>
+                            <li class="menu__item"><router-link :to="{ name: 'Home' }" class="menu__link">
+                                    {{ $t('components.AppHeader.home') }}</router-link>
                             </li>
-                            <li class="menu__item"><router-link :to="{ name: 'About' }"
-                                    class="menu__link">About</router-link>
+                            <li class="menu__item"><router-link :to="{ name: 'About' }" class="menu__link">{{
+                                $t('components.AppHeader.about') }}</router-link>
                             </li>
-                            <li class="menu__item"><router-link :to="{ name: 'Releases' }"
-                                    class="menu__link">Releases</router-link>
+                            <li class="menu__item"><router-link :to="{ name: 'Releases' }" class="menu__link">{{
+                                $t('components.AppHeader.releases') }}</router-link>
                             </li>
                             <li v-if="user" class="menu__item"><router-link :to="{ name: 'Add-Release' }"
-                                    class="menu__link">Add
-                                    Release</router-link>
+                                    class="menu__link">{{ $t('components.AppHeader.add-release') }}</router-link>
                             </li>
-                            <li v-if="isAdmin" class="menu__item"><router-link :to="{ name: 'Admin' }"
-                                    class="menu__link">Admin</router-link>
+                            <li v-if="isAdmin" class="menu__item"><router-link :to="{ name: 'Admin' }" class="menu__link">{{
+                                $t('components.AppHeader.admin') }}</router-link>
                             </li>
                         </ul>
                     </div>
@@ -29,7 +29,8 @@
             </div>
             <div class="header__right">
                 <div v-if="!user" class="header__actions actions-header">
-                    <button @click="toggleAuthModal" class="actions-header__register">Register</button>
+                    <button @click="toggleAuthModal" class="actions-header__register">{{ $t('components.AppHeader.register')
+                    }}</button>
                 </div>
                 <UserMenu v-else />
             </div>

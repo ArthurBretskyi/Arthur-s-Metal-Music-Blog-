@@ -1,0 +1,13 @@
+{
+  "pages": {},
+  "components": {
+    "AppHeader": {
+      "home": "Головна",
+      "about": "Що тут відбувається?",
+      "releases": "Релізи",
+      "add-release": "Додати реліз",
+      "admin": "Адмін",
+      "register": "Зареєструватись"
+    }
+  }
+}

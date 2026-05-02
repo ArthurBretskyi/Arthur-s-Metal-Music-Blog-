@@ -62,7 +62,7 @@ const { deleteAccountAndUserDoc } = authStore
 const photoURL = computed(() => user.value?.photoURL || null)
 
 const displayName = computed(() =>
-    user.value?.displayName || user.value?.email?.split('@')[0] || 'User'
+    user.value?.firstName || user.value?.displayName || user.value?.email?.split('@')[0] || 'User'
 )
 
 const initials = computed(() => displayName.value.charAt(0).toUpperCase())

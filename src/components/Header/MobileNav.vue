@@ -46,10 +46,6 @@
                     </div>
                 </div>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, rem. Ut assumenda eaque excepturi odio velit.
-                Consequatur sed aliquid fuga labore! Libero nemo quisquam impedit deserunt eos. Architecto qui vitae
-                praesentium consectetur voluptates eius delectus facilis! Similique, quae magnam sint autem eius quos,
-                cumque delectus saepe quas asperiores suscipit commodi?</p>
         </div>
     </div>
 </template>
@@ -93,11 +89,13 @@ async function onLogout() {
 }
 
 onMounted(() => {
-    document.querySelector('.wrapper').style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden' // це html елемент
 })
 
 onUnmounted(() => {
-    document.querySelector('.wrapper').style.overflow = 'clip'
+    document.body.style.overflow = ''
+    document.documentElement.style.overflow = ''
 })
 </script>
 
