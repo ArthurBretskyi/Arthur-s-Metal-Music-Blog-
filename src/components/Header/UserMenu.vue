@@ -13,10 +13,11 @@
                         <span class="user-menu__email">{{ email }}</span>
                     </div>
                     <div class="user-menu__profile">
-                        <router-link :to="{ name: 'Profile' }" class="user-menu__profile-link">Profile</router-link>
+                        <router-link :to="{ name: 'Profile' }" class="user-menu__profile-link">{{
+                            $t("components.UserMenu.profile") }}</router-link>
                     </div>
                     <button class="user-menu__logout" @click="onLogout" type="button">
-                        LogOut
+                        {{ $t("components.UserMenu.logOut") }}
                     </button>
                 </div>
             </div>
@@ -47,11 +48,9 @@ function toggleDropdown() {
 
 const photoURL = computed(() => user.value?.photoURL || null)
 
-const displayName = computed(() => {
-    return user.value?.displayName
-        || user.value?.email?.split('@')[0]
-        || 'User'
-})
+const displayName = computed(() =>
+    user.value?.firstName || user.value?.displayName || user.value?.email?.split('@')[0] || 'User'
+)
 
 const email = computed(() => user.value?.email || '')
 

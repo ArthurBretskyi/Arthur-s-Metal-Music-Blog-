@@ -5,25 +5,26 @@
             <nav class="mobile-nav__menu menu-mobile">
                 <ul class="menu-mobile__list">
                     <li class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'Home' }"
-                            class="menu-mobile__link">Home</router-link>
+                            class="menu-mobile__link">{{ $t('components.MobileNav.home') }}</router-link>
                     </li>
                     <li class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'About' }"
-                            class="menu-mobile__link">About</router-link>
+                            class="menu-mobile__link">{{ $t('components.MobileNav.about') }}</router-link>
                     </li>
                     <li class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'Releases' }"
-                            class="menu-mobile__link">Releases</router-link>
+                            class="menu-mobile__link">{{ $t('components.MobileNav.releases') }}</router-link>
                     </li>
                     <li v-if="user" class="menu-mobile__item"><router-link @click="emit('close')"
-                            :to="{ name: 'Add-Release' }" class="menu-mobile__link">Add
-                            Release</router-link>
+                            :to="{ name: 'Add-Release' }" class="menu-mobile__link">{{
+                                $t('components.MobileNav.add-release') }}</router-link>
                     </li>
                     <li v-if="isAdmin" class="menu-mobile__item"><router-link @click="emit('close')" :to="{ name: 'Admin' }"
-                            class="menu-mobile__link">Admin</router-link>
+                            class="menu-mobile__link">{{ $t('components.MobileNav.admin') }}</router-link>
                     </li>
                 </ul>
             </nav>
             <div v-if="!user" class="menu-mobile__actions actions-mobile">
-                <button @click="toggleAuthModal" class="actions-mobile__register">Register</button>
+                <button @click="toggleAuthModal" class="actions-mobile__register">{{ $t('components.MobileNav.register')
+                }}</button>
             </div>
             <div v-else class="menu-mobile__user user-menu">
                 <div class="user-menu__init">
@@ -37,11 +38,11 @@
                     </div>
                     <div class="user-menu__actions">
                         <div class="user-menu__profile">
-                            <router-link :to="{ name: 'Profile' }" @click="emit('close')"
-                                class="user-menu__profile-link">Profile</router-link>
+                            <router-link :to="{ name: 'Profile' }" @click="emit('close')" class="user-menu__profile-link">{{
+                                $t('components.MobileNav.profile') }}</router-link>
                         </div>
                         <button class="user-menu__logout" @click="onLogout" type="button">
-                            LogOut
+                            {{ $t('components.MobileNav.logOut') }}
                         </button>
                     </div>
                 </div>
@@ -70,11 +71,9 @@ const { toggleAuthModal } = UiStore
 
 const photoURL = computed(() => user.value?.photoURL || null)
 
-const displayName = computed(() => {
-    return user.value?.displayName
-        || user.value?.email?.split('@')[0]
-        || 'User'
-})
+const displayName = computed(() =>
+    user.value?.firstName || user.value?.displayName || user.value?.email?.split('@')[0] || 'User'
+)
 
 const email = computed(() => user.value?.email || '')
 

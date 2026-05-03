@@ -6,7 +6,7 @@
                     <div class="about-header__image">
                         <img src="@/assets/pictures/about/horns_left.png" alt="devil horns left" class="about-header__img">
                     </div>
-                    <h2 class="about-header__title">Area under protection. Beware: angry horns.</h2>
+                    <h2 class="about-header__title">{{ $t("pages.About.title") }}</h2>
                     <div class="about-header__image">
                         <img src="@/assets/pictures/about/horns_right.png" alt="devil horns right"
                             class="about-header__img">

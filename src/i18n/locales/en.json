@@ -1,5 +1,16 @@
 {
-  "pages": {},
+  "pages": {
+    "About": {
+      "title": "Area under protection. Beware: angry horns.",
+      "text": [
+        "Hey! If you're here, it's definitely not by accident.",
+        "Like me, you're searching for at least a glimmer of light and warmth in this wretched world.",
+        "And you've found it — in the profound lyrics of Cannibal Corpse and the cozy atmosphere of Burzum.",
+        "So don't be afraid, come on in. It's going to be fun.",
+        "Join the conversation with like-minded people!"
+      ]
+    }
+  },
   "components": {
     "AppHeader": {
       "home": "Home",
@@ -8,6 +19,20 @@
       "add-release": "Add-Release",
       "admin": "Admin",
       "register": "Register"
+    },
+    "UserMenu": {
+      "profile": "Profile",
+      "logOut": "LogOut"
+    },
+    "MobileNav": {
+      "home": "Home",
+      "about": "About",
+      "releases": "Releases",
+      "add-release": "Add-Release",
+      "admin": "Admin",
+      "register": "Register",
+      "profile": "Profile",
+      "logOut": "LogOut"
     }
   }
 }
