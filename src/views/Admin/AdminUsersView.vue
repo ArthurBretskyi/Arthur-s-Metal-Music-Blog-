@@ -16,7 +16,8 @@
                 <span>Role</span>
                 <span>Joined</span>
             </div>
-            <div v-for="user in users" :key="user.id" class="admin-users__row">
+            <div v-for="user in users" :key="user.id" class="admin-users__row"
+                @click="router.push({ name: 'AdminUserView', params: { id: user.id } })">
                 <span class="admin-users__cell">{{ user.username || '—' }}</span>
                 <span class="admin-users__cell">{{ user.email || '—' }}</span>
                 <span class="admin-users__cell">
@@ -35,8 +36,11 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 import { useUsersStore } from '@/stores/users'
 import { useGeneralStore } from '@/stores/general'
+
+const router = useRouter()
 
 const usersStore = useUsersStore()
 const { getItemsList: users } = storeToRefs(usersStore)
@@ -120,6 +124,10 @@ onMounted(() => {
 
         &:not(&--head):hover {
             background-color: color.adjust($cards-background-color, $lightness: 3%);
+        }
+
+        &:not(&--head) {
+            cursor: pointer;
         }
     }
 

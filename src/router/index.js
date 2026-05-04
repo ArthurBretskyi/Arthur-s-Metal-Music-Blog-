@@ -10,6 +10,7 @@ import EditView from '@/views/EditView.vue'
 import ReleasesView from '@/views/ReleasesView.vue'
 import AddReleaseView from '@/views/AddReleaseView.vue'
 import AdminUsersView from '@/views/Admin/AdminUsersView.vue'
+import AdminUserView from '@/views/Admin/AdminUserView.vue'
 import ProfileView from '@/views/Profile/ProfileView.vue'
 import ProfileEditView from '@/views/Profile/ProfileEditView.vue'
 
@@ -44,6 +45,12 @@ const routes = [
         path: 'users',
         name: 'AdminUsers',
         component: AdminUsersView,
+        meta: { requiresAdmin: true },
+      },
+      {
+        path: 'users/:id',
+        name: 'AdminUserView',
+        component: AdminUserView,
         meta: { requiresAdmin: true },
       },
     ],

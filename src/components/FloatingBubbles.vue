@@ -122,8 +122,8 @@ onMounted(() => {
     pointer-events: auto;
 
     .bubble {
-        width: 82px;
-        height: 82px;
+        width: 62px;
+        height: 62px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(6px);
@@ -141,8 +141,8 @@ onMounted(() => {
         }
 
         &--flag img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
         }
 

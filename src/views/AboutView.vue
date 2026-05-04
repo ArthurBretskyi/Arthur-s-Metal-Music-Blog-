@@ -14,15 +14,9 @@
                 </div>
             </div>
             <div class="about-main">
-                <p class="about-main__text">
-                    Hey! If you're here, it's definitely not by accident. Like me, you're searching for at least a glimmer
-                    of
-                    light and warmth in this wretched world. And you've found it — in the profound lyrics of Cannibal Corpse
-                    and
-                    the cozy atmosphere of Burzum. So don't be afraid, come on in. It's going to be fun.
-
+                <p v-for="(line, index) in $tm('pages.About.text')" :key="index" class="about-main__text">
+                    {{ $rt(line) }}
                 </p>
-                <p class="about-main__text">Join the conversation with like-minded people!</p>
             </div>
             <div class="about-footer">
                 <div v-if="!user" class="about-footer__actions">

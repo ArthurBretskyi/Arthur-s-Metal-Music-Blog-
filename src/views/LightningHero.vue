@@ -55,6 +55,8 @@ import fisher from '@/assets/pictures/home/George Corpsegrinder Fisher.png'
 import sigurd from '@/assets/pictures/home/Sigurd Wongraven.png'
 import semargl from '@/assets/pictures/home/Semargl.png'
 import shagrath from '@/assets/pictures/home/Shagrath.png'
+import harris from '@/assets/pictures/home/Steave Harris.png'
+import glen from '@/assets/pictures/home/Glen Benton.png'
 import master from '@/assets/pictures/home/master-of-puppets.png'
 import rust from '@/assets/pictures/home/Rust In Peace.png'
 import beast from '@/assets/pictures/home/number-of-the-beast.png'
@@ -86,6 +88,8 @@ const items = [
     { src: sigurd, alt: 'Sigurd Wongraven' },
     { src: semargl, alt: 'Semargl' },
     { src: shagrath, alt: 'Shagrath' },
+    { src: harris, alt: 'Steave Harris' },
+    { src: glen, alt: 'Glen Benton' },
     { src: master, alt: 'master of puppets' },
     { src: rust, alt: 'Rust In Peace' },
     { src: beast, alt: 'number of the beast' },

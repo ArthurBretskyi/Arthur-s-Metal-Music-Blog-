@@ -14,8 +14,6 @@ export function useLocales() {
     }
   }
 
-  window.addEventListener('storage', () => checkLocale())
-
   return {
     locale,
     t,
