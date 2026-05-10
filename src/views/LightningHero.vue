@@ -57,6 +57,8 @@ import semargl from '@/assets/pictures/home/Semargl.png'
 import shagrath from '@/assets/pictures/home/Shagrath.png'
 import harris from '@/assets/pictures/home/Steave Harris.png'
 import glen from '@/assets/pictures/home/Glen Benton.png'
+import grutle from '@/assets/pictures/home/Grutle.png'
+import devin from '@/assets/pictures/home/Devin.png'
 import master from '@/assets/pictures/home/master-of-puppets.png'
 import rust from '@/assets/pictures/home/Rust In Peace.png'
 import beast from '@/assets/pictures/home/number-of-the-beast.png'
@@ -90,6 +92,8 @@ const items = [
     { src: shagrath, alt: 'Shagrath' },
     { src: harris, alt: 'Steave Harris' },
     { src: glen, alt: 'Glen Benton' },
+    { src: grutle, alt: 'Grutle' },
+    { src: devin, alt: 'Devin' },
     { src: master, alt: 'master of puppets' },
     { src: rust, alt: 'Rust In Peace' },
     { src: beast, alt: 'number of the beast' },

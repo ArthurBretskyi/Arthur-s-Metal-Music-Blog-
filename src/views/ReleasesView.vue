@@ -27,9 +27,16 @@ const { getItemsList: genres } = storeToRefs(genresStore)
 const genreNames = computed(() => genres.value.map(g => g.name))
 
 const selectedGenre = ref(null)
+
+const sortedReleases = computed(() => {
+    return [...releases.value].sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt)
+    })
+})
+
 const filteredReleases = computed(() => {
-    if (!selectedGenre.value) return releases.value
-    return releases.value.filter(r => r.genre.includes(selectedGenre.value))
+    if (!selectedGenre.value) return sortedReleases.value
+    return sortedReleases.value.filter(r => r.genre.includes(selectedGenre.value))
 })
 
 const { visibleItems, loadMore, hasMore } = usePagination(filteredReleases)

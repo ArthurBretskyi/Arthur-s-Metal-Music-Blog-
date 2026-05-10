@@ -116,7 +116,7 @@ async function onSubmit() {
         coverUrl = await uploadImage(coverFile.value)
     }
 
-    await releasesStore.addNewRelease({ ...newRelease, cover: coverUrl, userId: user.value.uid })
+    await releasesStore.addNewRelease({ ...newRelease, cover: coverUrl, userId: user.value.uid, createdAt: new Date().toISOString() })
 
     newRelease.band = ''
     newRelease.album = ''
